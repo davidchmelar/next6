@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXT6 - Fotogalerie</title>
+
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f1e7;
+      color: #3b2f1c;
+    }
+
+    header {
+      background: linear-gradient(135deg, #b08d2f, #7a5c12);
+      padding: 6px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header img {
+      max-width: 70px;
+    }
+
+    .header-center {
+      flex: 1;
+      text-align: center;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    nav {
+      background: #6e5412;
+      padding: 8px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff8dc;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #ffe08a;
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+    }
+
+    h2 {
+  color: #8b6b2e;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 6px;
+  margin-bottom: 20px;
+}
+
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .gallery-card {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .gallery-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+
+    footer {
+      background: #8b6b2e;
+      color: #fff8dc;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-icons img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 14px;
+}
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .lightbox img {
+  max-width: 92%;
+  max-height: 85%;
+  border-radius: 12px;
+  box-shadow: 0 12px 45px rgba(0,0,0,0.65);
+  animation: zoomIn 0.25s ease;
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+    }
+    /* =========================
+   MOBILNÍ VERZE
+========================= */
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px;
+  }
+
+  header img {
+    margin-bottom: 6px;
+  }
+
+  .header-center {
+    font-size: 15px;
+  }
+
+  nav {
+    padding: 12px 6px;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 6px 10px;
+    font-size: 15px;
+  }
+
+  .container {
+    margin: 12px;
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-card img {
+    height: 220px;
+  }
+
+  footer {
+    padding: 20px 10px;
+  }
+
+  .footer-icons img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .lightbox img {
+    max-width: 95%;
+    max-height: 80%;
+  }
+}
+/* ===== HAMBURGER MENU ===== */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2b1d00;
+}
+
+/* MOBIL */
+@media (max-width: 768px) {
+
+  .burger {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    background: #6e5412;
+  }
+
+  nav a {
+    padding: 12px 0;
+    display: block;
+  }
+
+  nav.show {
+    display: flex;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <img src="images/logo-next6.png" alt="NEXT6 logo">
+  <p class="header-center">Studentská firma NEXT6</p>
+
+  <div class="burger" onclick="toggleMenu()">☰</div>
+</header>
+
+
+<nav id="mobile-menu">
+  <a href="index.html">Hlavní stránka</a>
+  <a href="fotogalerie.html">Fotogalerie</a>
+</nav>
+
+<div class="container">
+  <h2>Fotogalerie akcí NEXT6</h2>
+  <p>Fotografie z uskutečněných školních akcí a výletů.</p>
+
+  <div class="gallery-grid">
+    <div class="gallery-card">
+      <img src="images/jested.jpg" alt="Výlet na Ještěd"
+           onclick="openLightbox(this.src)">
+    </div>
+
+    <div class="gallery-card">
+      <img src="images/praha.jpg" alt="Praha – centrum"
+           onclick="openLightbox(this.src)">
+    </div>
+
+    <div class="gallery-card">
+      <img src="images/iq_land.jpg" alt="IQ Landia"
+           onclick="openLightbox(this.src)">
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <p class="footer-text">© 2026 NEXT6</p>
+
+    <div class="footer-icons">
+      <a href="https://www.instagram.com/" target="_blank">
+        <img src="images/instagram.png" alt="Instagram">
+      </a>
+
+      <a href="https://www.facebook.com/" target="_blank">
+        <img src="images/facebook.png" alt="Facebook">
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(src) {
+  document.getElementById("lightbox-img").src = src;
+  document.getElementById("lightbox").style.display = "flex";
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+function toggleMenu() {
+  document.getElementById("mobile-menu").classList.toggle("show");
+}
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") closeLightbox();
+});
+</script>
+
+</body>
+</html>

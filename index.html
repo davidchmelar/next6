@@ -14,10 +14,15 @@
   <meta property="og:url" content="https://banioo.github.io/School-Banio/">
   <meta property="og:type" content="website">
 
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    * {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -86,6 +91,24 @@
 nav a:hover {
   color: #ffe08a;
 }
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: #ffe08a;
+  transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
 
     .container {
       max-width: 1000px;
@@ -114,6 +137,34 @@ nav a:hover {
       padding: 15px;
       margin-top: 40px;
     }
+    .footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-icons img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.footer-text {
+  margin: 0;
+  font-size: 14px;
+}
   
 
     .team-grid {
@@ -164,10 +215,15 @@ nav a:hover {
     }
 
     .gallery-card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-    }
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
 
     .gallery-card div {
       padding: 10px;
@@ -184,88 +240,173 @@ nav a:hover {
   -webkit-overflow-scrolling: touch;
 }
 
+/* =========================
+   MOBILNÍ VERZE
+========================= */
 @media (max-width: 768px) {
-  table {
-    width: 100%;
-    min-width: unset;
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px;
+  }
+
+  header img {
+    margin-bottom: 6px;
+  }
+
+  .header-center {
+    font-size: 15px;
+  }
+
+  nav {
+    padding: 12px 6px;
+  }
+
+  nav a {
+    display: inline-block;
+    margin: 6px 10px;
+    font-size: 15px;
+  }
+
+  .container {
+    margin: 12px;
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-card img {
+    height: 220px;
+  }
+
+  footer {
+    padding: 20px 10px;
+  }
+
+  .footer-icons img {
+    width: 26px;
+    height: 26px;
   }
 }
+/* ===== HAMBURGER MENU ===== */
+.burger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #2b1d00;
+}
+
+/* MOBIL */
+@media (max-width: 768px) {
+
+  .burger {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    flex-direction: column;
+    background: #6e5412;
+  }
+
+  nav a {
+    padding: 12px 0;
+    display: block;
+  }
+
+  nav.show {
+    display: flex;
+  }
+}
+
+
 </style>
 </head>
 <body>
 
   <header>
-    <!-- LOGO: vlož soubor logo.png do stejné složky -->
-     <img src="logo-next6.png" alt="NEXT6 logo" />
+  <!-- LOGO -->
+  <img src="images/logo-next6.png" alt="NEXT6 logo" />
 
   <p class="header-center">
     Studentská firma NEXT6
   </p>
 
+  <!-- ☰ HAMBURGER MENU -->
+  <div class="burger" onclick="toggleMenu()">☰</div>
 </header>
 
-  <nav>
+
+  <nav id="mobile-menu">
     <a href="#uvod">O firmě</a>
     <a href="#tym">Náš tým</a>
     <a href="#program">Akce</a>
     <a href="#kontakt">Přihláška</a>
-    <a href="fotogalerie.html">Fotogalerie</a>
+    <a href="fotogalerie.html" class="active">Fotogalerie</a>
   </nav>
 
-  <div class="container">
+  <div class="container" id="home">
     <section id="uvod">
       <h2>O firmě NEXT6</h2>
       <div class="card">
         <p><strong>NEXT6</strong> je studentská firma vytvořená v rámci školního projektu.</p>
         <p>Název <strong>NEXT</strong> symbolizuje budoucnost, nové nápady a inovace. Číslo <strong>6</strong> představuje šest členů týmu, kteří na projektu spolupracují.</p>
         <p>Firma se zaměřuje na <strong>organizaci školních akcí, výletů a studentských programů</strong>.</p>
-        <p>Cílem firmy NEXT6 je zlepšit komunikaci mezi studenty a školou a nabídnout kvalitní společné zážitky.</p>
+        <p>Cílem firmy <strong>NEXT6</strong> je zlepšit komunikaci mezi studenty a školou a nabídnout kvalitní společné zážitky.</p>
       </div>
     </section>
 
     <section id="tym">
       <h2>Náš tým</h2>
       <div class="card">
-        <p>Studentskou firmu NEXT6 tvoří šest členů. Každý má svou roli a odpovědnost.</p>
+        <p>Studentskou firmu <strong>NEXT6</strong> tvoří šest členů. Každý má svou roli a odpovědnost.</p>
 
         <div class="team-grid">
           <div class="team-card">
-            <img src="david.png" alt="David Chmelař" />
+            <img src="images/david.png" alt="David Chmelař" />
             <h3>David Chmelař</h3>
             <p><strong>Vedoucí projektu & Web</strong></p>
             <p>Vedení projektu, tvorba a správa webu</p>
           </div>
 
           <div class="team-card">
-            <img src="aneta.png" alt="Člen týmu" />
+            <img src="images/aneta.png" alt="Člen týmu" />
             <h3>Aneta Matušková</h3>
             <p><strong>Organizace akcí</strong></p>
             <p>Organizace akcí, logistika, harmonogram</p>
           </div>
 
           <div class="team-card">
-            <img src="robin.png" alt="Člen týmu" />
+            <img src="images/robin.png" alt="Člen týmu" />
             <h3>Robin Svozil</h3>
             <p><strong>Finance a rozpočet</strong></p>
             <p>Rozpočet, ceny, přehled nákladů</p>
           </div>
 
           <div class="team-card">
-            <img src="maria.png" alt="Člen týmu" />
+            <img src="images/maria.png" alt="Člen týmu" />
             <h3>Marie Smetiprachová</h3>
             <p><strong>Marketing a propagace</strong></p>
             <p>Propagace, vizuály, komunikace</p>
           </div>
 
           <div class="team-card">
-            <img src="jirka.png" alt="Člen týmu" />
+            <img src="images/jirka.png" alt="Člen týmu" />
             <h3>Jiří Filipi</h3>
             <p><strong>Komunikace s účastníky</strong></p>
             <p>Kontakt se studenty a účastníky</p>
           </div>
 
           <div class="team-card">
-            <img src="oliver.png" alt="Člen týmu" />
+            <img src="images/oliver.png" alt="Člen týmu" />
             <h3>Oliver Foltýn</h3>
             <p><strong>Administrativa a evidence</strong></p>
             <p>Správa přihlášek, evidence informací</p>
@@ -331,7 +472,7 @@ nav a:hover {
         <div class="gallery-grid">
 
   <div class="gallery-card">
-    <img src="jested.jpg" alt="Výlet na Ještěd" />
+    <img src="images/jested.jpg" alt="Výlet na Ještěd" />
     <div>
       <h4>Výlet na Ještěd</h4>
       <p>Příroda, návštěva rozhledny a společný program.</p>
@@ -347,7 +488,7 @@ nav a:hover {
   </div>
 
   <div class="gallery-card">
-    <img src="praha.jpg" alt="Praha – centrum" />
+    <img src="images/praha.jpg" alt="Praha – centrum" />
     <div>
       <h4>Praha – centrum</h4>
       <p>Historické památky, procházka centrem a volný čas.</p>
@@ -363,7 +504,7 @@ nav a:hover {
   </div>
 
   <div class="gallery-card">
-    <img src="iq_land.jpg" alt="IQ Landia" />
+    <img src="images/iq_land.jpg" alt="IQ Landia" />
     <div>
       <h4>IQ Landia</h4>
       <p>Vzdělávací a zábavná exkurze.</p>
@@ -402,16 +543,18 @@ nav a:hover {
   </div>
 
   <footer>
-  <div style="display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap;">
-    <p style="margin:0;">© 2026 NEXT6</p>
+  <div class="footer-content">
+    <p class="footer-text">© 2026 NEXT6</p>
 
-    <a href="https://www.instagram.com/" target="_blank">
-      <img src="instagram.png" alt="Instagram" style="width:20px; height:20px;">
-    </a>
+    <div class="footer-icons">
+      <a href="https://www.instagram.com/" target="_blank">
+        <img src="images/instagram.png" alt="Instagram">
+      </a>
 
-    <a href="https://www.facebook.com/" target="_blank">
-      <img src="facebook.png" alt="Facebook" style="width:20px; height:20px;">
-    </a>
+      <a href="https://www.facebook.com/" target="_blank">
+        <img src="images/facebook.png" alt="Facebook">
+      </a>
+    </div>
   </div>
 </footer>
 
@@ -425,6 +568,9 @@ nav a:hover {
 
   function odeslano() {
     alert('Přihláška byla odeslána. Děkujeme!');
+  }
+  function toggleMenu() {
+  document.getElementById("mobile-menu").classList.toggle("show");
   }
 </script>
 
