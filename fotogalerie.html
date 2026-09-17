@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fotogalerie – NEXT6</title>
+  <meta name="description" content="Fotky z akcí a výletů studentské firmy NEXT6.">
+  <meta property="og:title" content="Fotogalerie – NEXT6">
+  <meta property="og:description" content="Fotky z akcí a výletů studentské firmy NEXT6.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.next6project.com/fotogalerie.html">
+  <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
+  <link rel="icon" type="image/png" href="images/logo-next6.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Figtree:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <header class="hlavicka">
+    <div class="obal">
+      <a class="znacka" href="index.html">
+        <img src="images/logo-next6.png" alt="NEXT6 – úvodní stránka" width="44" height="44">
+        <span>Studentská firma NEXT6</span>
+      </a>
+      <nav aria-label="Hlavní menu">
+        <button class="menu-tlacitko" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otevřít menu"><span></span></button>
+        <ul class="menu" id="menu">
+          <li><a href="o-firme.html">O firmě</a></li>
+          <li><a href="tym.html">Náš tým</a></li>
+          <li><a href="akce.html">Akce</a></li>
+          <li><a href="fotogalerie.html" aria-current="page">Fotogalerie</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="stranka-zahlavi">
+      <div class="obal">
+        <h1>Fotogalerie</h1>
+        <p>Fotky z akcí, které jsme společně zažili. Kliknutím fotku zvětšíte.</p>
+      </div>
+    </section>
+
+    <section class="sekce">
+      <div class="obal" id="fotogalerie"></div>
+    </section>
+
+  </main>
+
+  <dialog class="nahled" id="nahled" aria-label="Zvětšená fotka">
+    <img id="nahled-obrazek" src="" alt="">
+    <p class="nahled__popis" id="nahled-popis"></p>
+    <div class="nahled__ovladani">
+      <button class="tlacitko tlacitko--svetle" id="nahled-predchozi" type="button">Předchozí</button>
+      <button class="tlacitko" id="nahled-zavrit" type="button">Zavřít</button>
+      <button class="tlacitko tlacitko--svetle" id="nahled-dalsi" type="button">Další</button>
+    </div>
+  </dialog>
+
+  <footer class="paticka">
+    <div class="obal">
+      <img class="paticka__logo" src="images/logo-next6.png" alt="" width="72" height="72">
+      <p><strong>NEXT6</strong> – studentská firma, která organizuje školní akce a výlety.</p>
+      <div class="socialni">
+        <a href="https://www.instagram.com/next6project/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/next6project" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6</p>
+    </div>
+  </footer>
+
+</body>
+</html>

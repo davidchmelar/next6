@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kontakt – NEXT6</title>
+  <meta name="description" content="Napište studentské firmě NEXT6. Zpráva z formuláře přijde přímo na náš e-mail.">
+  <meta property="og:title" content="Kontakt – NEXT6">
+  <meta property="og:description" content="Napište studentské firmě NEXT6. Zpráva z formuláře přijde přímo na náš e-mail.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.next6project.com/kontakt.html">
+  <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
+  <link rel="icon" type="image/png" href="images/logo-next6.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Figtree:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <header class="hlavicka">
+    <div class="obal">
+      <a class="znacka" href="index.html">
+        <img src="images/logo-next6.png" alt="NEXT6 – úvodní stránka" width="44" height="44">
+        <span>Studentská firma NEXT6</span>
+      </a>
+      <nav aria-label="Hlavní menu">
+        <button class="menu-tlacitko" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otevřít menu"><span></span></button>
+        <ul class="menu" id="menu">
+          <li><a href="o-firme.html">O firmě</a></li>
+          <li><a href="tym.html">Náš tým</a></li>
+          <li><a href="akce.html">Akce</a></li>
+          <li><a href="fotogalerie.html">Fotogalerie</a></li>
+          <li><a href="kontakt.html" aria-current="page">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="kontakt-hero">
+      <div class="obal kontakt-hero__obal">
+        <div class="kontakt-hero__text">
+          <p class="nadtitulek">Kontakt</p>
+          <h1>Napište nám</h1>
+          <p class="kontakt-hero__perex">Máte dotaz k akci, nápad na výlet nebo chcete spolupracovat? Zpráva z formuláře přijde přímo do našeho e-mailu.</p>
+
+          <ul class="kanaly">
+            <li class="kanal">
+              <span class="kanal__ikona" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+              </span>
+              <span class="kanal__text">
+                <span class="kanal__popisek">E-mail</span>
+                <a class="kanal__hodnota" id="kontakt-email-odkaz" href="mailto:next6project@gmail.com">next6project@gmail.com</a>
+              </span>
+              <button class="kanal__kopirovat" id="kopirovat-email" type="button" aria-label="Kopírovat e-mail" title="Kopírovat e-mail">
+                <svg class="ikona-kopie" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+                <svg class="ikona-hotovo" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+              </button>
+              <span class="skryte" id="kopirovat-stav" role="status"></span>
+            </li>
+            <li>
+              <a class="kanal" href="https://www.instagram.com/next6project/" target="_blank" rel="noopener">
+                <span class="kanal__ikona" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </span>
+                <span class="kanal__text">
+                  <span class="kanal__popisek">Instagram</span>
+                  <span class="kanal__hodnota">@next6project</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a class="kanal" href="https://www.facebook.com/next6project" target="_blank" rel="noopener">
+                <span class="kanal__ikona" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8h3V4.5h-3A3.5 3.5 0 0 0 10.5 8v2.5H8V14h2.5v6.5H14V14h2.6l.6-3.5H14V8Z"/></svg>
+                </span>
+                <span class="kanal__text">
+                  <span class="kanal__popisek">Facebook</span>
+                  <span class="kanal__hodnota">next6project</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="kontakt-karta" id="kontakt-karta">
+          <h2>Poslat zprávu</h2>
+          <form class="kontakt-formular" id="kontakt-formular" novalidate>
+            <fieldset class="temata">
+              <legend>O co jde?</legend>
+              <label><input type="radio" name="tema" value="Dotaz k akci" checked><span>Dotaz k akci</span></label>
+              <label><input type="radio" name="tema" value="Nápad na výlet"><span>Nápad na výlet</span></label>
+              <label><input type="radio" name="tema" value="Spolupráce"><span>Spolupráce</span></label>
+              <label><input type="radio" name="tema" value="Něco jiného"><span>Něco jiného</span></label>
+            </fieldset>
+
+            <div class="k-pole">
+              <label for="k-jmeno">Jméno a příjmení</label>
+              <input id="k-jmeno" name="jmeno" type="text" autocomplete="name" required aria-describedby="k-jmeno-chyba">
+              <p class="pole__chyba" id="k-jmeno-chyba"></p>
+            </div>
+            <div class="k-pole">
+              <label for="k-email">Váš e-mail</label>
+              <input id="k-email" name="email" type="email" autocomplete="email" required aria-describedby="k-email-chyba">
+              <p class="pole__chyba" id="k-email-chyba"></p>
+            </div>
+            <div class="k-pole k-pole--cele">
+              <label for="k-zprava">Zpráva</label>
+              <textarea id="k-zprava" name="zprava" rows="6" required aria-describedby="k-zprava-chyba"></textarea>
+              <p class="pole__chyba" id="k-zprava-chyba"></p>
+            </div>
+
+            <div class="skryte" aria-hidden="true">
+              <label for="k-honey">Nevyplňujte</label>
+              <input id="k-honey" name="_honey" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="k-odeslat">
+              <button class="tlacitko-zlate" type="submit">Odeslat zprávu</button>
+              <p class="k-poznamka">Údaje použijeme jen k odpovědi na vaši zprávu.</p>
+              <p class="k-stav" id="k-stav" role="alert"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="sekce sekce--tonovana">
+      <div class="obal kontakt-pruh">
+        <div>
+          <h2>Chcete se přihlásit na akci?</h2>
+          <p>Přihláška je přímo u každé akce v nabídce.</p>
+        </div>
+        <a class="tlacitko" href="akce.html">Nabídka akcí</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <img class="paticka__logo" src="images/logo-next6.png" alt="" width="72" height="72">
+      <p><strong>NEXT6</strong> – studentská firma, která organizuje školní akce a výlety.</p>
+      <div class="socialni">
+        <a href="https://www.instagram.com/next6project/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/next6project" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6</p>
+    </div>
+  </footer>
+
+</body>
+</html>
