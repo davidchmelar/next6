@@ -88,18 +88,22 @@
 
         <div class="kontakt-karta" id="kontakt-karta">
           <h2>Poslat zprávu</h2>
-          <form class="kontakt-formular" id="kontakt-formular" novalidate>
+          <form class="kontakt-formular" id="kontakt-formular" action="https://formsubmit.co/next6project@gmail.com" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="Nová zpráva z webu NEXT6">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://www.next6project.com/kontakt.html?odeslano=1">
             <fieldset class="temata">
               <legend>O co jde?</legend>
-              <label><input type="radio" name="tema" value="Dotaz k akci" checked><span>Dotaz k akci</span></label>
-              <label><input type="radio" name="tema" value="Nápad na výlet"><span>Nápad na výlet</span></label>
-              <label><input type="radio" name="tema" value="Spolupráce"><span>Spolupráce</span></label>
-              <label><input type="radio" name="tema" value="Něco jiného"><span>Něco jiného</span></label>
+              <label><input type="radio" name="Téma" value="Dotaz k akci" checked><span>Dotaz k akci</span></label>
+              <label><input type="radio" name="Téma" value="Nápad na výlet"><span>Nápad na výlet</span></label>
+              <label><input type="radio" name="Téma" value="Spolupráce"><span>Spolupráce</span></label>
+              <label><input type="radio" name="Téma" value="Něco jiného"><span>Něco jiného</span></label>
             </fieldset>
 
             <div class="k-pole">
               <label for="k-jmeno">Jméno a příjmení</label>
-              <input id="k-jmeno" name="jmeno" type="text" autocomplete="name" required aria-describedby="k-jmeno-chyba">
+              <input id="k-jmeno" name="Jméno" type="text" autocomplete="name" required aria-describedby="k-jmeno-chyba">
               <p class="pole__chyba" id="k-jmeno-chyba"></p>
             </div>
             <div class="k-pole">
@@ -109,7 +113,7 @@
             </div>
             <div class="k-pole k-pole--cele">
               <label for="k-zprava">Zpráva</label>
-              <textarea id="k-zprava" name="zprava" rows="6" required aria-describedby="k-zprava-chyba"></textarea>
+              <textarea id="k-zprava" name="Zpráva" rows="6" required aria-describedby="k-zprava-chyba"></textarea>
               <p class="pole__chyba" id="k-zprava-chyba"></p>
             </div>
 
