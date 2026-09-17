@@ -1,0 +1,38 @@
+JAK STÁHNOUT PÍSMA DO TÉTO SLOŽKY
+=================================
+
+Web už nenačítá písma z Google Fonts, ale z této složky.
+Dokud tu písma nejsou, web použije náhradní písmo (Arial apod.).
+
+Potřebujete 5 souborů s PŘESNĚ těmito názvy:
+
+  bungee-400.woff2
+  figtree-400.woff2
+  figtree-500.woff2
+  figtree-700.woff2
+  figtree-800.woff2
+
+
+1) PÍSMO BUNGEE (nadpisy)
+   - Otevřete: https://gwfh.mranftl.com/fonts/bungee?subsets=latin,latin-ext
+   - V části „Select charsets“ zaškrtněte latin a latin-ext
+   - V části „Select styles“ zaškrtněte regular
+   - Dole klikněte na tlačítko pro stažení ZIPu
+   - Ze ZIPu vezměte soubor končící na  -regular.woff2
+     a přejmenujte ho na:  bungee-400.woff2
+
+2) PÍSMO FIGTREE (texty)
+   - Otevřete: https://gwfh.mranftl.com/fonts/figtree?subsets=latin,latin-ext
+   - Zaškrtněte latin a latin-ext
+   - Zaškrtněte styly: regular, 500, 700, 800
+   - Stáhněte ZIP
+   - Soubory .woff2 přejmenujte takto:
+       ...-regular.woff2  ->  figtree-400.woff2
+       ...-500.woff2      ->  figtree-500.woff2
+       ...-700.woff2      ->  figtree-700.woff2
+       ...-800.woff2      ->  figtree-800.woff2
+
+3) Všech 5 souborů dejte do této složky (fonts/) a nahrajte ji na server.
+
+Latin-ext je důležité: obsahuje českou diakritiku (ě, š, č, ř, ž, ů …).
+Obě písma mají licenci SIL Open Font License, smíte je na webu volně používat.

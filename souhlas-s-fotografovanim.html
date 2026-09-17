@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Souhlas s fotografováním – NEXT6</title>
+  <meta name="description" content="Dejte nám vědět, jestli vás na akcích můžeme fotit a fotky zveřejňovat.">
+  <meta property="og:title" content="Souhlas s fotografováním – NEXT6">
+  <meta property="og:description" content="Dejte nám vědět, jestli vás na akcích můžeme fotit a fotky zveřejňovat.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.next6project.com/souhlas-s-fotografovanim.html">
+  <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
+  <link rel="icon" type="image/png" href="images/logo-next6.png">
+  <link rel="preload" href="fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+
+  <header class="hlavicka">
+    <div class="obal">
+      <a class="znacka" href="index.html">
+        <img src="images/logo-next6.png" alt="NEXT6 – úvodní stránka" width="44" height="44">
+        <span>Studentská firma NEXT6</span>
+      </a>
+      <nav aria-label="Hlavní menu">
+        <button class="menu-tlacitko" type="button" aria-expanded="false" aria-controls="menu" aria-label="Otevřít menu"><span></span></button>
+        <ul class="menu" id="menu">
+          <li><a href="o-firme.html">O firmě</a></li>
+          <li><a href="tym.html">Náš tým</a></li>
+          <li><a href="akce.html">Akce</a></li>
+          <li><a href="fotogalerie.html">Fotogalerie</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="stranka-zahlavi">
+      <div class="obal">
+        <h1>Souhlas s fotografováním</h1>
+        <p>Dejte nám vědět, jestli vás na akcích můžeme fotit.</p>
+      </div>
+    </section>
+
+    <section class="sekce">
+      <div class="obal">
+        <div class="pravni">
+          <h2>Milí studenti, vážení rodiče,</h2>
+          <p>na našich školních akcích a výletech fotíme. Fotky potom zveřejňujeme ve <a href="fotogalerie.html">fotogalerii</a> na tomto webu a na našich sociálních sítích, na Instagramu a Facebooku.</p>
+          <p>Fotit vás ale můžeme jen tehdy, když nám k tomu dáte souhlas. Proto vás prosíme o vyplnění formuláře níže. Stačí vybrat, jestli souhlasíte, nebo ne. Obojí je v pořádku a na účast na akci to nemá žádný vliv.</p>
+          <p><strong>Souhlas platí do 30. 6. 2027.</strong> Potom vás poprosíme znovu, pokud budeme chtít fotky dál používat.</p>
+          <p><strong>Rozmyslet si to můžete kdykoli.</strong> Stačí napsat na <a href="mailto:next6project@gmail.com">next6project@gmail.com</a> a přestaneme vás fotit. Fotky, na kterých už jste, z webu i ze sociálních sítí odstraníme.</p>
+          <p>Pokud je vám méně než 18 let, vyplňte prosím i jméno rodiče nebo zákonného zástupce, který s fotografováním souhlasí.</p>
+          <p>Děkujeme,<br>studentská firma NEXT6</p>
+        </div>
+
+        <div class="kontakt-karta souhlas-karta" id="souhlas-karta">
+          <h2>Vaše odpověď</h2>
+          <form class="kontakt-formular" id="souhlas-formular" action="https://formsubmit.co/next6project@gmail.com" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="Souhlas s fotografováním – web NEXT6">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://www.next6project.com/souhlas-s-fotografovanim.html?odeslano=1">
+            <input type="hidden" name="Platnost souhlasu" value="do 30. 6. 2027">
+
+            <fieldset class="temata">
+              <legend>Můžeme vás fotit a fotky zveřejňovat?</legend>
+              <label><input type="radio" name="Odpověď" value="Souhlasím, můžete mě fotit" checked><span>Souhlasím</span></label>
+              <label><input type="radio" name="Odpověď" value="Nesouhlasím, nefoťte mě"><span>Nesouhlasím</span></label>
+            </fieldset>
+
+            <div class="k-pole">
+              <label for="s-jmeno">Jméno a příjmení</label>
+              <input id="s-jmeno" name="Jméno" type="text" autocomplete="name" required aria-describedby="s-jmeno-chyba">
+              <p class="pole__chyba" id="s-jmeno-chyba"></p>
+            </div>
+            <div class="k-pole">
+              <label for="s-trida">Třída</label>
+              <input id="s-trida" name="Třída" type="text" placeholder="např. 2.A" required aria-describedby="s-trida-chyba">
+              <p class="pole__chyba" id="s-trida-chyba"></p>
+            </div>
+            <div class="k-pole">
+              <label for="s-email">Váš e-mail</label>
+              <input id="s-email" name="email" type="email" autocomplete="email" required aria-describedby="s-email-chyba">
+              <p class="pole__chyba" id="s-email-chyba"></p>
+            </div>
+            <div class="k-pole">
+              <label for="s-zastupce">Jméno zákonného zástupce <span class="nepovinne">(pokud je mi méně než 18 let)</span></label>
+              <input id="s-zastupce" name="Zákonný zástupce" type="text" aria-describedby="s-zastupce-chyba">
+              <p class="pole__chyba" id="s-zastupce-chyba"></p>
+            </div>
+
+            <div class="skryte" aria-hidden="true">
+              <label for="s-honey">Nevyplňujte</label>
+              <input id="s-honey" name="_honey" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="k-odeslat">
+              <button class="tlacitko-zlate" type="submit">Odeslat odpověď</button>
+              <p class="k-poznamka">Odpověď použijeme jen k evidenci souhlasu. Více v <a href="ochrana-osobnich-udaju.html">zásadách ochrany osobních údajů</a>.</p>
+              <p class="k-stav" role="alert"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <img class="paticka__logo" src="images/logo-next6.png" alt="" width="72" height="72">
+      <p><strong>NEXT6</strong> – studentská firma, která organizuje školní akce a výlety.</p>
+      <div class="socialni">
+        <a href="https://www.instagram.com/next6project/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/next6project" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6 <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a> <a href="souhlas-s-fotografovanim.html">Souhlas s fotografováním</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

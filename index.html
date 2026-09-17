@@ -11,9 +11,7 @@
   <meta property="og:url" content="https://www.next6project.com/">
   <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
   <link rel="icon" type="image/png" href="images/logo-next6.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Figtree:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
 </head>
@@ -40,15 +38,19 @@
 
   <main>
     <section class="hero">
-      <div class="obal">
-        <img class="hero__logo" src="images/logo-next6.png" alt="Logo NEXT6" width="500" height="500">
+      <div class="obal hero__obal">
         <div>
-          <h1>Školní výlety a akce od studentů pro studenty</h1>
-          <p class="hero__text">Jsme studentská firma NEXT6. Vybíráme, plánujeme a organizujeme školní akce, na které se chce jet celá třída.</p>
+          <p class="nadtitulek">Studentská firma NEXT6</p>
+          <h1>Školní výlety a akce <span class="zlaty-text">od studentů pro studenty</span></h1>
+          <p class="hero__text">Vybíráme, plánujeme a organizujeme školní akce, na které se chce jet celá třída.</p>
           <div class="tlacitka">
             <a class="tlacitko" href="akce.html">Zobrazit akce</a>
             <a class="tlacitko tlacitko--svetle" href="o-firme.html">Kdo jsme</a>
           </div>
+          <dl class="statistiky" id="statistiky" aria-label="NEXT6 v číslech"></dl>
+        </div>
+        <div class="hero__vizual">
+          <img class="hero__logo" src="images/logo-next6.png" alt="Logo NEXT6" width="500" height="500">
         </div>
       </div>
     </section>
@@ -60,14 +62,33 @@
       </div>
     </section>
 
+    <section class="sekce sekce--tonovana">
+      <div class="obal tym-nahled">
+        <div>
+          <p class="nadtitulek">Náš tým</p>
+          <h2>Šest lidí, kteří <span class="zlaty-text">akce připravují</span></h2>
+          <p class="tym-nahled__text">Každý z nás má svou roli: organizaci akcí, rozpočet, komunikaci se studenty, propagaci i přihlášky.</p>
+          <div class="tlacitka">
+            <a class="tlacitko" href="tym.html">Poznat tým</a>
+            <a class="tlacitko tlacitko--svetle" href="o-firme.html">O firmě</a>
+          </div>
+        </div>
+        <div class="tym-nahled__fotky" id="tym-nahled"></div>
+      </div>
+    </section>
+
     <section class="sekce">
       <div class="obal">
-        <nav class="rozcestnik" aria-label="Stránky webu">
-          <a href="o-firme.html"><h3>O firmě</h3><p>Co děláme a co znamená název NEXT6.</p></a>
-          <a href="tym.html"><h3>Náš tým</h3><p>Šest lidí a jejich role v projektu.</p></a>
-          <a href="fotogalerie.html"><h3>Fotogalerie</h3><p>Fotky z akcí, které jsme společně zažili.</p></a>
-          <a href="kontakt.html"><h3>Kontakt</h3><p>Kde nám napsat, když máte dotaz.</p></a>
-        </nav>
+        <div class="kontakt-pruh">
+          <div>
+            <h2>Máte nápad na výlet?</h2>
+            <p>Napište nám, co byste chtěli zažít, a zařadíme to do nabídky akcí.</p>
+          </div>
+          <div class="tlacitka">
+            <a class="tlacitko" href="kontakt.html">Napsat nám</a>
+            <a class="tlacitko tlacitko--svetle" href="fotogalerie.html">Fotogalerie</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -81,7 +102,7 @@
         <a href="https://www.instagram.com/next6project/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/next6project" target="_blank" rel="noopener">Facebook</a>
       </div>
-      <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6</p>
+      <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6 <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a> <a href="souhlas-s-fotografovanim.html">Souhlas s fotografováním</a></p>
     </div>
   </footer>
 

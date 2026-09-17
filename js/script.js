@@ -450,6 +450,10 @@ function sekcePrihlasky(a) {
       zobrazitTermin(a) ? `Přihlašujete se na akci ${a.nazev}, ${terminAkce(a, false)}.` : `Přihlašujete se na akci ${a.nazev}.`)
   );
 
+  sekce.append(el("p", { class: "prihlaska__uvod" },
+    "Údaje z přihlášky používáme jen pro organizaci akce. Více v ",
+    el("a", { href: "ochrana-osobnich-udaju.html" }, "zásadách ochrany osobních údajů"), "."));
+
   if (vlastniFormularZapnuty()) {
     sekce.append(formularPrihlasky(a));
   } else if (a.googleForm) {
@@ -727,11 +731,116 @@ function zobrazFotogalerii() {
   }
 }
 
+/* ---------- Formuláře, které posílají e-mail (FormSubmit) ---------- */
+function pripojFormularNaEmail(nastaveni) {
+  const formular = document.getElementById(nastaveni.formular);
+  const karta = document.getElementById(nastaveni.karta);
+  if (!formular || !karta) return;
+
+  const stav = formular.querySelector(".k-stav");
+  const tlacitko = formular.querySelector("button[type=submit]");
+  const puvodniObsah = [...karta.childNodes];
+  const pole = nazev => formular.querySelector(`[name="${nazev}"]`);
+  const hodnota = nazev => {
+    const p = pole(nazev);
+    if (!p) return "";
+    if (p.type === "radio") {
+      const vybrane = formular.querySelector(`[name="${nazev}"]:checked`);
+      return vybrane ? vybrane.value : "";
+    }
+    return p.value.trim();
+  };
+
+  const adresat = KONTAKT.formularKlic || KONTAKT.email;
+  formular.action = `https://formsubmit.co/${adresat}`;
+  if (location.protocol.startsWith("http") && pole("_next")) {
+    pole("_next").value = `${location.origin}${location.pathname}?odeslano=1`;
+  }
+
+  function ukazHotovo(text) {
+    const hotovo = el("div", { class: "k-hotovo", tabindex: "-1", role: "status" },
+      el("div", { class: "k-hotovo__ikona", "aria-hidden": "true" }),
+      el("h2", {}, nastaveni.nadpisHotovo),
+      el("p", {}, text || nastaveni.zpravaHotovo),
+      el("button", { type: "button" }, nastaveni.tlacitkoZnovu)
+    );
+    hotovo.querySelector(".k-hotovo__ikona").innerHTML =
+      '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+    hotovo.querySelector("button").addEventListener("click", () => {
+      formular.reset();
+      tlacitko.disabled = false;
+      tlacitko.textContent = nastaveni.tlacitkoText;
+      stav.textContent = "";
+      karta.replaceChildren(...puvodniObsah);
+      const prvni = formular.querySelector("input:not([type=hidden]):not([type=radio]), textarea");
+      if (prvni) prvni.focus();
+    });
+    karta.replaceChildren(hotovo);
+    hotovo.focus();
+  }
+
+  // Návrat z FormSubmit po klasickém odeslání
+  if (new URLSearchParams(location.search).get("odeslano") === "1") {
+    history.replaceState(null, "", location.pathname);
+    ukazHotovo(nastaveni.zpravaHotovo);
+  }
+
+  formular.addEventListener("input", e => {
+    if (e.target.getAttribute("aria-invalid") === "true") nastavChybu(e.target, "");
+  });
+
+  formular.addEventListener("submit", async e => {
+    e.preventDefault();
+    stav.textContent = "";
+    const chyba = zkontrolujFormular(formular);
+    if (chyba) { chyba.focus(); return; }
+
+    const data = {};
+    nastaveni.pole.forEach(nazev => { data[nazev] = hodnota(nazev); });
+    const predmet = nastaveni.predmet(data);
+    if (pole("_subject")) pole("_subject").value = predmet;
+
+    if (location.protocol === "file:") {
+      ukazZalohu("Formulář funguje až na webu next6project.com, v souboru otevřeném z počítače odeslat nejde.", data, predmet);
+      return;
+    }
+
+    tlacitko.disabled = true;
+    tlacitko.textContent = "Odesílám…";
+    try {
+      const telo = Object.assign({}, data, {
+        _subject: predmet,
+        _replyto: data["email"] || "",
+        _template: "table",
+        _honey: pole("_honey") ? pole("_honey").value : ""
+      });
+      const odpoved = await fetch(`https://formsubmit.co/ajax/${adresat}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(telo)
+      });
+      const vysledek = await odpoved.json().catch(() => ({}));
+      if (!odpoved.ok || String(vysledek.success) !== "true") throw new Error(vysledek.message || "Chyba");
+      ukazHotovo(nastaveni.zprava(data));
+    } catch (chyba) {
+      console.warn("Rychlé odeslání se nepovedlo, posílám klasicky přes FormSubmit:", chyba && chyba.message);
+      tlacitko.textContent = "Odesílám přes FormSubmit…";
+      HTMLFormElement.prototype.submit.call(formular);
+    }
+  });
+
+  function ukazZalohu(text, data, predmet) {
+    const telo = nastaveni.mailText(data);
+    const mailto = `mailto:${KONTAKT.email}?subject=${encodeURIComponent(predmet)}&body=${encodeURIComponent(telo)}`;
+    stav.replaceChildren(
+      el("span", {}, text),
+      el("a", { class: "k-zaloha", href: mailto }, "Poslat stejnou zprávu přes můj e-mail")
+    );
+  }
+}
+
 /* ---------- Stránka Kontakt ---------- */
 function zobrazKontakt() {
-  const formular = document.getElementById("kontakt-formular");
-  if (!formular) return;
-
   // E-mail z nastavení
   const odkaz = document.getElementById("kontakt-email-odkaz");
   if (odkaz && KONTAKT.email) {
@@ -760,108 +869,100 @@ function zobrazKontakt() {
     });
   }
 
-  const karta = document.getElementById("kontakt-karta");
-  const stav = document.getElementById("k-stav");
-  const tlacitko = formular.querySelector("button[type=submit]");
-  const puvodniObsah = [...karta.childNodes];
-  const pole = nazev => formular.querySelector(`[name="${nazev}"]`);
-
-  // Adresa FormSubmit – klasické odeslání i rychlé odeslání (AJAX)
-  const adresat = KONTAKT.formularKlic || KONTAKT.email;
-  formular.action = `https://formsubmit.co/${adresat}`;
-  if (location.protocol.startsWith("http")) {
-    pole("_next").value = `${location.origin}${location.pathname}?odeslano=1`;
-  }
-
-  function ukazHotovo(jmeno, email) {
-    const hotovo = el("div", { class: "k-hotovo", tabindex: "-1", role: "status" },
-      el("div", { class: "k-hotovo__ikona", "aria-hidden": "true" }),
-      el("h2", {}, "Zpráva je na cestě"),
-      el("p", {}, jmeno
-        ? `Děkujeme, ${jmeno.split(" ")[0]}. Ozveme se vám na ${email}.`
-        : "Děkujeme, vaše zpráva dorazila do našeho e-mailu. Brzy se ozveme."),
-      el("button", { type: "button" }, "Napsat další zprávu")
-    );
-    hotovo.querySelector(".k-hotovo__ikona").innerHTML =
-      '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
-    hotovo.querySelector("button").addEventListener("click", () => {
-      formular.reset();
-      tlacitko.disabled = false;
-      tlacitko.textContent = "Odeslat zprávu";
-      stav.textContent = "";
-      karta.replaceChildren(...puvodniObsah);
-      document.getElementById("k-jmeno").focus();
-    });
-    karta.replaceChildren(hotovo);
-    hotovo.focus();
-  }
-
-  // Návrat z FormSubmit po klasickém odeslání
-  const parametry = new URLSearchParams(location.search);
-  if (parametry.get("odeslano") === "1") {
-    history.replaceState(null, "", location.pathname);
-    ukazHotovo("", "");
-  }
-
-  formular.addEventListener("input", e => {
-    if (e.target.getAttribute("aria-invalid") === "true") nastavChybu(e.target, "");
+  pripojFormularNaEmail({
+    formular: "kontakt-formular",
+    karta: "kontakt-karta",
+    pole: ["Téma", "Jméno", "email", "Zpráva"],
+    tlacitkoText: "Odeslat zprávu",
+    tlacitkoZnovu: "Napsat další zprávu",
+    nadpisHotovo: "Zpráva je na cestě",
+    zpravaHotovo: "Děkujeme, vaše zpráva dorazila do našeho e-mailu. Brzy se ozveme.",
+    predmet: d => `Web NEXT6: ${d["Téma"]} – ${d["Jméno"]}`,
+    zprava: d => `Děkujeme, ${d["Jméno"].split(" ")[0]}. Ozveme se vám na ${d["email"]}.`,
+    mailText: d => `${d["Zpráva"]}\n\n${d["Jméno"]}\n${d["email"]}`
   });
+}
 
-  formular.addEventListener("submit", async e => {
-    e.preventDefault();
-    stav.textContent = "";
-    const chyba = zkontrolujFormular(formular);
-    if (chyba) { chyba.focus(); return; }
+/* ---------- Stránka Souhlas s fotografováním ---------- */
+function zobrazSouhlas() {
+  pripojFormularNaEmail({
+    formular: "souhlas-formular",
+    karta: "souhlas-karta",
+    pole: ["Odpověď", "Jméno", "Třída", "email", "Zákonný zástupce", "Platnost souhlasu"],
+    tlacitkoText: "Odeslat odpověď",
+    tlacitkoZnovu: "Vyplnit znovu",
+    nadpisHotovo: "Odpověď jsme přijali",
+    zpravaHotovo: "Děkujeme. Vaši odpověď máme v e-mailu.",
+    predmet: d => `Souhlas s fotografováním: ${d["Odpověď"]} – ${d["Jméno"]}`,
+    zprava: d => d["Odpověď"].startsWith("Souhlas")
+      ? `Děkujeme, ${d["Jméno"].split(" ")[0]}. Souhlas platí do 30. 6. 2027 a kdykoli ho můžete zrušit e-mailem.`
+      : `Děkujeme, ${d["Jméno"].split(" ")[0]}. Fotit vás nebudeme a fotky, na kterých už jste, odstraníme.`,
+    mailText: d => `Odpověď: ${d["Odpověď"]}\nJméno: ${d["Jméno"]}\nTřída: ${d["Třída"]}\nE-mail: ${d["email"]}\nZákonný zástupce: ${d["Zákonný zástupce"]}`
+  });
+}
 
-    const jmeno = pole("Jméno").value.trim();
-    const email = pole("email").value.trim();
-    const tema = (formular.querySelector('[name="Téma"]:checked') || {}).value || "Zpráva";
-    const zprava = pole("Zpráva").value.trim();
-    pole("_subject").value = `Web NEXT6: ${tema} – ${jmeno}`;
-
-    // Soubor otevřený z počítače FormSubmit nepřijme
-    if (location.protocol === "file:") {
-      ukazZalohu("Formulář funguje až na webu next6project.com, v souboru otevřeném z počítače odeslat nejde.");
-      return;
+/* ---------- Úvodní stránka: náhled týmu ---------- */
+function zobrazNahledTymu() {
+  const misto = document.getElementById("tym-nahled");
+  if (!misto) return;
+  TYM.forEach(c => {
+    const kolecko = el("a", { class: "tym-nahled__clen", href: "tym.html", title: c.jmeno, "aria-label": c.jmeno });
+    const nahradni = () => {
+      kolecko.classList.add("bez-fotky");
+      kolecko.append(el("span", { "aria-hidden": "true" }, inicialy(c.jmeno)));
+    };
+    if (c.foto) {
+      const img = el("img", { src: c.foto, alt: "", loading: "lazy" });
+      img.addEventListener("error", () => { img.remove(); nahradni(); });
+      kolecko.append(img);
+    } else {
+      nahradni();
     }
+    misto.append(kolecko);
+  });
+}
 
-    tlacitko.disabled = true;
-    tlacitko.textContent = "Odesílám…";
-    try {
-      const odpoved = await fetch(`https://formsubmit.co/ajax/${adresat}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          "Jméno": jmeno,
-          email,
-          "Téma": tema,
-          "Zpráva": zprava,
-          _subject: pole("_subject").value,
-          _replyto: email,
-          _template: "table",
-          _honey: pole("_honey").value
-        })
-      });
-      const vysledek = await odpoved.json().catch(() => ({}));
-      if (!odpoved.ok || String(vysledek.success) !== "true") throw new Error(vysledek.message || "Chyba");
-      ukazHotovo(jmeno, email);
-    } catch (chyba) {
-      console.warn("Rychlé odeslání se nepovedlo, posílám klasicky přes FormSubmit:", chyba && chyba.message);
-      // Klasické odeslání: FormSubmit zobrazí svou stránku (i výzvu k aktivaci)
-      // a potom vrátí návštěvníka zpět sem.
-      tlacitko.textContent = "Odesílám přes FormSubmit…";
-      HTMLFormElement.prototype.submit.call(formular);
-    }
+/* ---------- Úvodní stránka: čísla ---------- */
+function sklonuj(pocet, jeden, dva, pet) {
+  if (pocet === 1) return jeden;
+  if (pocet >= 2 && pocet <= 4) return dva;
+  return pet;
+}
 
-    function ukazZalohu(text) {
-      const predmet = pole("_subject").value;
-      const telo = `${zprava}\n\n${jmeno}\n${email}`;
-      const mailto = `mailto:${KONTAKT.email}?subject=${encodeURIComponent(predmet)}&body=${encodeURIComponent(telo)}`;
-      stav.replaceChildren(
-        el("span", {}, text),
-        el("a", { class: "k-zaloha", href: mailto }, "Poslat stejnou zprávu přes můj e-mail")
-      );
-    }
+function zobrazStatistiky() {
+  const misto = document.getElementById("statistiky");
+  if (!misto) return;
+  const pocetFotek = FOTOGALERIE.reduce((soucet, s) => soucet + fotkySkupiny(s).length, 0);
+  const cisla = [
+    [TYM.length, sklonuj(TYM.length, "člen týmu", "členové týmu", "členů týmu")],
+    [AKCE.length, sklonuj(AKCE.length, "akce", "akce", "akcí")],
+    [pocetFotek, sklonuj(pocetFotek, "fotka z akcí", "fotky z akcí", "fotek z akcí")]
+  ].filter(([n]) => n > 0);
+  cisla.forEach(([n, popis]) => misto.append(el("div", {}, el("dt", {}, popis), el("dd", {}, String(n)))));
+}
+
+/* ---------- Plynulé zobrazení při posouvání ---------- */
+function nastavOdhalovani() {
+  if (!("IntersectionObserver" in window)) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const prvky = document.querySelectorAll(
+    ".sekce h2, .sekce-nadpis, .sekce__uvod, .rozcestnik a, .zajezd, .clen, .nazev-vyznam__radek, " +
+    ".o-firme__text, .galerie-akce, .kontakt-pruh, .pravni > *, .prazdne"
+  );
+  const pozorovatel = new IntersectionObserver(zaznamy => {
+    zaznamy.forEach(z => {
+      if (z.isIntersecting) {
+        z.target.classList.add("videt");
+        pozorovatel.unobserve(z.target);
+      }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+  prvky.forEach((prvek, i) => {
+    // prvky, které už jsou vidět, neschováváme
+    if (prvek.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+    prvek.classList.add("odhal");
+    prvek.style.transitionDelay = `${(i % 4) * 70}ms`;
+    pozorovatel.observe(prvek);
   });
 }
 
@@ -894,5 +995,9 @@ document.addEventListener("DOMContentLoaded", () => {
   zobrazTym();
   zobrazFotogalerii();
   zobrazKontakt();
+  zobrazSouhlas();
+  zobrazStatistiky();
+  zobrazNahledTymu();
   document.querySelectorAll(".rok").forEach(e => { e.textContent = new Date().getFullYear(); });
+  nastavOdhalovani();
 });
