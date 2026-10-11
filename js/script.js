@@ -291,7 +291,7 @@ const FOTOGALERIE = [
     idAkce: "jedunalabe",
     datum: "",
     slozka: "images/galerie/jedunalabe/",
-    pocet: 6,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pocet: 5,                    // počet fotek 01.jpg, 02.jpg … ve složce
     pripona: "jpg",
     fotky: []
   },
