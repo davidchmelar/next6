@@ -90,7 +90,7 @@ const AKCE = [
     typ: "",
     zruseno: true,
     duvodZruseni: "Akci rušíme, protože se přihlásilo málo lidí. Děkujeme všem, kteří měli zájem.",
-    misto: "",
+    misto: "Praha",
     datum: "",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
     probehlo: false,
@@ -150,7 +150,7 @@ const AKCE = [
     id: "jedunalabe",
     nazev: "Jedu na Labe",
     typ: "",
-    misto: "",
+    misto: "Labe",
     datum: "",
     datumDo: "",                 // u vícedenní akce datum konce
     probehlo: true,
