@@ -286,6 +286,24 @@ const FOTOGALERIE = [
     pripona: "jpg",
     fotky: []
   },
+    {
+    akce: "ZOO Praha",
+    idAkce: "zoo-praha",
+    datum: "",
+    slozka: "images/galerie/zoo-praha/",
+    pocet: 11,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pripona: "jpg",
+    fotky: []
+  },
+    {
+    akce: "Titanic Praha",
+    idAkce: "titanic",
+    datum: "",
+    slozka: "images/galerie/titanic/",
+    pocet: 6,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pripona: "jpg",
+    fotky: []
+  },
   {
     akce: "iQLANDIA Liberec",
     idAkce: "iqlandia",
