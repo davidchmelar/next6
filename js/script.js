@@ -38,15 +38,83 @@ const TYM = [
 //  - datumy pište ve tvaru RRRR-MM-DD
 //  - akce po datu konání dostane sama štítek PROBĚHLO a tlačítko Fotogalerie
 //  - probehlo: true = akce má štítek PROBĚHLO hned, i když datum neznáte
+//  - zruseno: true = akce je zrušená; dostane štítek ZRUŠENO a schová se přihláška
+//  - duvodZruseni: věta, proč se akce ruší (nepovinné)
 //  - vNabidce: true = akce zůstane otevřená s přihláškou i po datu konání
 //  - prázdné položky ("", [], null) se na webu nezobrazí
 //  - kapacita a prihlaseno jsou čísla; prihlaseno ručně aktualizujte podle přihlášek
 //  - uzaverka: po tomto dni už nejde se přihlásit
 //  - kratkyPopis: text na kartě; když je prázdný, použije se popis
+//  - plakat: obrázek plakátu, ukáže se v detailu akce (nepovinné)
+//  - zacatek: čas začátku, když není sraz (nepovinné)
 //
 // Pořadí na webu je stejné jako pořadí v tomto seznamu.
 // Novou akci přidáte tak, že za } napíšete čárku a zkopírujete celý blok { ... }.
 const AKCE = [
+  {
+    id: "divadelni-predplatne",
+    nazev: "Divadelní předplatné",
+    typ: "",
+    misto: "Hradec Králové",
+    datum: "",                   // doplňte datum prvního představení, např. "2026-11-12"
+    datumDo: "",
+    probehlo: false,
+    vNabidce: false,
+    doprava: "",
+    sraz: "",
+    casSrazu: "",
+    zacatek: "Vždy od 14:30",
+    navrat: "",
+    cenaNazev: "Cena",
+    cenaUpresneni: "",
+    cena: "480 Kč",
+    vCene: "Tři představení: Arabela, Kytice a Don Quijote",
+    uzaverka: "",
+    kapacita: null,
+    prihlaseno: null,
+    kratkyPopis: "Tři divadelní představení pro dojíždějící žáky a studenty: Arabela, Kytice a Don Quijote. Začátek vždy od 14:30.",
+    popis: "Divadelní předplatné pro dojíždějící žáky a studenty v Hradci Králové. V balíčku jsou tři představení: Arabela, Kytice a Don Quijote. Všechna začínají ve 14:30, takže se dají stihnout i při dojíždění. Celý balíček stojí 480 Kč pro žáka ZŠ nebo studenta SŠ, cena pro dospělý doprovod je 765 Kč.",
+    program: [
+      { cas: "", co: "Arabela" },
+      { cas: "", co: "Kytice" },
+      { cas: "", co: "Don Quijote" }
+    ],
+    sSebou: [],
+    obrazek: "images/Arabela.webp",
+    plakat: "images/divadlo-plakat.jpg",
+    googleForm: "https://docs.google.com/forms/d/e/1FAIpQLSfdcbhcodazEMj_Nke8pGr_2cUf6xQS_P9cPYtXWpfO7it4RA/viewform?usp=header"
+  },
+  {
+    id: "sherlock-holmes",
+    nazev: "Sherlock Holmes",
+    typ: "",
+    zruseno: true,
+    duvodZruseni: "Akci rušíme, protože se přihlásilo málo lidí. Děkujeme všem, kteří měli zájem.",
+    misto: "V Praze",
+    datum: "2026-10-14",                   // pište ve tvaru RRRR-MM-DD
+    datumDo: "",
+    probehlo: false,
+    vNabidce: false,
+    doprava: "Vlak",
+    sraz: "HK hlavní nádraží ",
+    casSrazu: "",
+    zacatek: "",
+    navrat: "",
+    cenaNazev: "Cena",
+    cenaUpresneni: "",
+    cena: "220 Kč",
+    vCene: "",
+    uzaverka: "",
+    kapacita: null,
+    prihlaseno: null,
+    kratkyPopis: "",
+    popis: "Výstava je zaměřena na Sherlocka Holmese, detektivní příběhy, tajemství a vyšetřování. Během návštěvy se můžeme seznámit s jeho světem, prohlédnout si tematické exponáty a zažít atmosféru detektivního příběhu.",
+    program: [],
+    sSebou: [],
+    obrazek: "images/sherlock-banner.png",
+    plakat: "images/sherlock-holmes.png",
+    googleForm: "https://docs.google.com/forms/d/e/1FAIpQLSfdcbhcodazEMj_Nke8pGr_2cUf6xQS_P9cPYtXWpfO7it4RA/viewform?usp=header"
+  },
   {
     id: "zoo-praha",
     nazev: "ZOO Praha",
@@ -67,8 +135,8 @@ const AKCE = [
     uzaverka: "",                // např. "2026-04-06"
     kapacita: null,              // např. 30
     prihlaseno: null,            // např. 12
-    kratkyPopis: "Návštěva ZOO Praha nabízí studentům možnost poznat zvířata z celého světa a dozvědět se více o ochraně přírody.",
-    popis: "Vzdělávací a zábavná exkurze do ZOO Praha, kde si studenti prohlédnou různá zvířata z celého světa a dozví se více o přírodě, ochraně zvířat a jejich prostředí.",
+    kratkyPopis: "Celodenní exkurze do pražské zoo. Zvířata z celého světa a povídání o tom, jak se chrání příroda.",
+    popis: "Vyrazili jsme na celý den do ZOO Praha. Prošli jsme si pavilony i venkovní výběhy, viděli jsme zvířata z celého světa a dozvěděli se, jak zoo pomáhá chránit ohrožené druhy. Byl to příjemně strávený den venku a zároveň se člověk něco nového dozvěděl.",
     program: [
       // { cas: "7:15", co: "Sraz na hlavním nádraží" },
     ],
@@ -76,6 +144,64 @@ const AKCE = [
       // "Svačina a pití",
     ],
     obrazek: "images/prahazoo.jpg",
+    googleForm: "https://docs.google.com/forms/d/e/1FAIpQLSdLV2lBg1av_Ew8eKjsaATsMGh7KCBQ6hLrEj0e-tR8b9vVwg/viewform?usp=header"
+  },
+  {
+    id: "jedunalabe",
+    nazev: "Jedu na Labe",
+    typ: "",
+    misto: "Labe",
+    datum: "2026-06-24",
+    datumDo: "",                 // u vícedenní akce datum konce
+    probehlo: true,
+    vNabidce: false,
+    doprava: "",
+    sraz: "",
+    casSrazu: "",                // např. "7:15"
+    navrat: "",                  // např. "Kolem 18:00 na hlavní nádraží HK"
+    cenaNazev: "Cena",
+    cenaUpresneni: "",
+    cena: "500 Kč za loď",
+    vCene: "Loď pro dva, jedna osoba vyjde na 250 Kč",
+    uzaverka: "",
+    kapacita: null,
+    prihlaseno: null,
+    kratkyPopis: "Den na vodě. Sjeli jsme kus Labe na kánoích, ve dvojicích na jedné lodi.",
+    popis: "Vyměnili jsme školu za pádlo a vyrazili jsme na Labe. Jelo se na kánoích po dvojicích, takže si každý zapádloval. Loď pro dva stála 500 Kč, na osobu tedy 250 Kč, a jízdenku na vlak za 70 Kč si platil každý sám. Počasí vyšlo, a i když to pro většinu z nás byla první jízda na lodi, nakonec jsme dojeli všichni. Zatím nejvíc zážitková akce, kterou jsme jako NEXT6 uspořádali.",
+    program: [],
+    sSebou: [],
+    obrazek: "images/jedunalabe.png",
+    googleForm: "https://docs.google.com/forms/d/e/1FAIpQLSdLV2lBg1av_Ew8eKjsaATsMGh7KCBQ6hLrEj0e-tR8b9vVwg/viewform?usp=header"
+  },
+  {
+    id: "titanic",
+    nazev: "Titanic Praha",
+    typ: "",
+    misto: "Praha",
+    datum: "",
+    datumDo: "",                 // u vícedenní akce datum konce
+    probehlo: true,
+    vNabidce: false,
+    doprava: "",
+    sraz: "",
+    casSrazu: "",                // např. "7:15"
+    navrat: "",                  // např. "Kolem 18:00 na hlavní nádraží HK"
+    cenaNazev: "Vstupné",        // jak se cena jmenuje (Cena, Vstupné …)
+    cenaUpresneni: "",  // text před částkou v detailu akce
+    cena: "",
+    vCene: "",
+    uzaverka: "",                // např. "2026-04-06"
+    kapacita: null,              // např. 30
+    prihlaseno: null,            // např. 12
+    kratkyPopis: "Světová výstava o Titaniku. Předměty vyzdvižené z oceánu a věrné rekonstrukce kajut.",
+    popis: "Prošli jsme si světovou výstavu věnovanou Titaniku. K vidění byly stovky předmětů vyzdvižených z oceánu, osobní věci cestujících i části samotné lodi, a procházeli jsme věrnými rekonstrukcemi kajut. Celou dobu je cítit příběh lodi, která se potopila v roce 1912, takže to byl spíš zážitek než obyčejná výstava.",
+    program: [
+      // { cas: "7:15", co: "Sraz na hlavním nádraží" },
+    ],
+    sSebou: [
+      // "Svačina a pití",
+    ],
+    obrazek: "images/titanic.webp",
     googleForm: "https://docs.google.com/forms/d/e/1FAIpQLSdLV2lBg1av_Ew8eKjsaATsMGh7KCBQ6hLrEj0e-tR8b9vVwg/viewform?usp=header"
   },
   {
@@ -98,8 +224,8 @@ const AKCE = [
     uzaverka: "",
     kapacita: null,
     prihlaseno: null,
-    kratkyPopis: "Návštěva science centra iQLANDIA v Liberci nabízí studentům interaktivní expozice zaměřené na vědu a techniku.",
-    popis: "Návštěva science centra iQLANDIA v Liberci nabízí studentům interaktivní expozice zaměřené na vědu a techniku.",
+    kratkyPopis: "Science centrum v Liberci, kde si vědu a techniku osaháte vlastníma rukama.",
+    popis: "Vyrazili jsme do libereckého science centra iQLANDIA. Expozice jsou postavené tak, že si většinu věcí vyzkoušíte sami, od pokusů s vodou a vzduchem až po techniku a vesmír. Za jedno dopoledne jsme toho vyzkoušeli víc než za celý měsíc teorie ve škole.",
     program: [],
     sSebou: [],
     obrazek: "images/iqlandia.jpg",
@@ -138,7 +264,8 @@ const PRIHLASKA = {
 // Každá akce má vlastní galerii. Fotky se dají přidat dvěma způsoby:
 //
 // A) ČÍSLOVANÉ FOTKY (nejjednodušší)
-//    Nahrajte fotky do složky z "slozka" a pojmenujte je 01.jpg, 02.jpg, 03.jpg …
+//    Nahrajte fotky do složky z "slozka" a pojmenujte je čísly: 1, 2, 3 … nebo 01, 02, 03 …
+//    Na příponě nezáleží, web si poradí s .jpg, .jpeg, .png i .webp.
 //    Do "pocet" napište, kolik jich je. Chybějící fotky se na webu nezobrazí.
 //
 // B) FOTKY S POPISKY
@@ -155,7 +282,7 @@ const FOTOGALERIE = [
     idAkce: "zoo-praha",
     datum: "",
     slozka: "images/galerie/zoo-praha/",
-    pocet: 7,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pocet: 11,                    // počet fotek 01.jpg, 02.jpg … ve složce
     pripona: "jpg",
     fotky: []
   },
@@ -226,10 +353,14 @@ function probehla(a) {
 
 // Termín ukazujeme jen tehdy, když ještě nenastal
 function zobrazitTermin(a) {
-  return Boolean(a.datum) && !terminUzMinul(a);
+  if (!a.datum) return false;
+  // akce držená v nabídce po svém termínu starý termín neukazuje
+  if (a.vNabidce === true && terminUzMinul(a)) return false;
+  return true;
 }
 
 function stavAkce(a) {
+  if (a.zruseno === true) return { otevreno: false, zrusena: true, text: "Akce je zrušená" };
   if (probehla(a)) return { otevreno: false, text: "Akce už proběhla" };
   if (a.uzaverka && konecDne(a.uzaverka) < dnesek()) return { otevreno: false, text: "Přihlášky jsou uzavřené" };
   const maKapacitu = Number.isFinite(a.kapacita) && a.kapacita > 0;
@@ -293,7 +424,8 @@ function kartaAkce(a) {
 
   let odznak = "";
   let odznakTrida = "odznak";
-  if (skoncila) odznak = "PROBĚHLO";
+  if (stav.zrusena) { odznak = "ZRUŠENO"; odznakTrida += " odznak--zruseno"; }
+  else if (skoncila) odznak = "PROBĚHLO";
   else if (!stav.otevreno) { odznak = stav.text; odznakTrida += " odznak--zavreno"; }
   else odznak = a.cena || "";
 
@@ -316,14 +448,37 @@ function kartaAkce(a) {
 
 function vykresliNabidku(seznam) {
   seznam.textContent = "";
-  if (!AKCE.length) {
-    seznam.classList.remove("katalog");
+  seznam.classList.remove("katalog");
+  const { budouci, minule } = rozdelAkce();
+  if (!budouci.length && !minule.length) {
     seznam.append(prazdnyStav("Další akci právě připravujeme", "Termín a místo zveřejníme tady a na sociálních sítích."));
     return;
   }
   seznam.classList.add("katalog");
-  const { budouci, minule } = rozdelAkce();
   [...budouci, ...minule].forEach(a => seznam.append(kartaAkce(a)));
+}
+
+function skupinaAkci(nadpis, akce, prazdny) {
+  const mrizka = el("div", { class: "katalog" });
+  akce.forEach(a => mrizka.append(kartaAkce(a)));
+  return el("section", { class: "skupina" },
+    el("h2", { class: "skupina-nadpis" }, nadpis,
+      akce.length ? el("span", { class: "skupina-pocet" }, String(akce.length)) : null),
+    akce.length ? mrizka : prazdny
+  );
+}
+
+function vykresliNabidkuPoSkupinach(seznam) {
+  seznam.textContent = "";
+  const { budouci, minule } = rozdelAkce();
+  seznam.append(skupinaAkci(
+    "Připravujeme",
+    budouci,
+    prazdnyStav("Další akci právě připravujeme", "Termín a místo zveřejníme tady a na sociálních sítích.")
+  ));
+  if (minule.length) {
+    seznam.append(skupinaAkci("Proběhlé akce", minule, null));
+  }
 }
 
 /* ---------- Úvodní stránka: nabídka akcí ---------- */
@@ -334,7 +489,7 @@ function zobrazNabidkuNaUvodu() {
 
 /* ---------- Stránka Akce: nabídka ---------- */
 function vykresliKatalog() {
-  vykresliNabidku(document.getElementById("katalog-seznam"));
+  vykresliNabidkuPoSkupinach(document.getElementById("katalog-seznam"));
 }
 
 /* ---------- Stránka Akce: detail ---------- */
@@ -343,7 +498,8 @@ function vykresliDetail(a) {
   const stav = stavAkce(a);
   detail.textContent = "";
 
-  const tlacitkoPrihlasit = stav.otevreno
+  const lzeSePrihlasit = stav.otevreno && (vlastniFormularZapnuty() || Boolean(a.googleForm));
+  const tlacitkoPrihlasit = lzeSePrihlasit
     ? el("button", { type: "button", class: "tlacitko" }, "Přihlásit se")
     : null;
   if (tlacitkoPrihlasit) {
@@ -363,7 +519,11 @@ function vykresliDetail(a) {
       zobrazitTermin(a) ? el("p", { class: "detail-hlava__termin" }, terminAkce(a)) : null,
       a.misto ? el("p", { class: "detail-hlava__misto" }, a.misto) : null,
       cenaBlok(a),
-      stav.text ? el("p", { class: `stav ${stav.otevreno ? "stav--volno" : "stav--zavreno"}` }, stav.text) : null,
+      stav.zrusena
+        ? el("p", { class: "zrusena-hlaska" },
+            el("strong", {}, "Akce je zrušená."),
+            a.duvodZruseni ? " " + a.duvodZruseni : "")
+        : (stav.text ? el("p", { class: `stav ${stav.otevreno ? "stav--volno" : "stav--zavreno"}` }, stav.text) : null),
       el("div", { class: "tlacitka" },
         tlacitkoPrihlasit,
         galerieAkce(a.id)
@@ -379,10 +539,19 @@ function vykresliDetail(a) {
   if (a.program && a.program.length) {
     obsah.append(el("section", {},
       el("h2", {}, "Program"),
-      el("ol", { class: "program" }, ...a.program.map(b =>
+      el("ol", { class: a.program.some(b => b.cas) ? "program" : "program program--bez-casu" }, ...a.program.map(b =>
         el("li", {}, el("span", { class: "program__cas" }, b.cas || ""), el("span", {}, b.co))
       ))
     ));
+  }
+  if (a.plakat) {
+    const obrazek = el("img", { src: a.plakat, alt: `Plakát k akci ${a.nazev}`, loading: "lazy" });
+    const sekce = el("section", {},
+      el("h2", {}, "Plakát"),
+      el("a", { class: "plakat", href: a.plakat, target: "_blank", rel: "noopener" }, obrazek)
+    );
+    obrazek.addEventListener("error", () => sekce.remove());
+    obsah.append(sekce);
   }
   if (a.sSebou && a.sSebou.length) {
     obsah.append(el("section", {},
@@ -397,6 +566,7 @@ function vykresliDetail(a) {
   const udaje = [
     ["Termín", zobrazitTermin(a) ? terminAkce(a, false) : ""],
     ["Sraz", [a.sraz, a.casSrazu].filter(Boolean).join(", ")],
+    ["Začátek", a.zacatek],
     ["Návrat", a.navrat],
     ["Doprava", a.doprava],
     [a.cenaNazev || "Cena", cenaText(a)],
@@ -634,14 +804,29 @@ function zobrazTym() {
 }
 
 /* ---------- Stránka Fotogalerie ---------- */
+// Fotku zkusíme najít pod několika názvy, takže nezáleží na tom,
+// jestli se jmenuje 01.jpg, 1.jpg, 1.jpeg nebo 1.png.
+const PRIPONY = ["jpg", "jpeg", "png", "webp", "JPG", "JPEG", "PNG"];
+
+function kandidatiFotky(slozka, cislo, prednostniPripona) {
+  const cisla = [String(cislo).padStart(2, "0"), String(cislo)];
+  const pripony = [prednostniPripona || "jpg", ...PRIPONY];
+  const seznam = [];
+  cisla.forEach(c => pripony.forEach(e => {
+    const cesta = `${slozka || ""}${c}.${e}`;
+    if (!seznam.includes(cesta)) seznam.push(cesta);
+  }));
+  return seznam;
+}
+
 function fotkySkupiny(s) {
   const seznam = [];
   const pocet = Number(s.pocet) || 0;
   for (let i = 1; i <= pocet; i++) {
-    const cislo = String(i).padStart(2, "0");
-    seznam.push({ soubor: `${s.slozka || ""}${cislo}.${s.pripona || "jpg"}`, popis: "" });
+    seznam.push({ soubory: kandidatiFotky(s.slozka, i, s.pripona), popis: "" });
   }
-  return seznam.concat(s.fotky || []);
+  (s.fotky || []).forEach(f => seznam.push({ soubory: [f.soubor], popis: f.popis || "" }));
+  return seznam;
 }
 
 function galerieAkce(idAkce) {
@@ -671,7 +856,7 @@ function zobrazFotogalerii() {
     if (!seznam.length) return;
     aktualni = fotka;
     const poradi = `${seznam.indexOf(fotka) + 1} / ${seznam.length}`;
-    nahledImg.src = fotka.soubor;
+    nahledImg.src = fotka.soubor || fotka.soubory[0];
     nahledImg.alt = fotka.popis || `Fotka z akce ${fotka.akce}`;
     nahledPopis.textContent = `${fotka.popis || fotka.akce} (${poradi})`;
   }
@@ -692,15 +877,25 @@ function zobrazFotogalerii() {
 
       fotky.forEach(f => {
         vsechny.push(f);
-        const img = el("img", { src: f.soubor, alt: f.popis || `Fotka z akce ${s.akce}`, loading: "lazy" });
+        const img = el("img", { alt: f.popis || `Fotka z akce ${s.akce}`, loading: "lazy" });
         const tlacitko = el("button", { type: "button", "aria-label": "Zvětšit fotku: " + (f.popis || s.akce) }, img);
+        let poradiKandidata = 0;
+
         img.addEventListener("error", () => {
+          poradiKandidata++;
+          if (poradiKandidata < f.soubory.length) {
+            img.src = f.soubory[poradiKandidata];   // zkusíme další název
+            return;
+          }
           f.chyba = true;
           tlacitko.remove();
           zbyva--;
           if (zbyva === 0) prazdnaSkupina.hidden = false;
         });
+        img.addEventListener("load", () => { f.soubor = f.soubory[poradiKandidata]; });
+
         tlacitko.addEventListener("click", () => { ukaz(f); nahled.showModal(); });
+        img.src = f.soubory[0];
         mrizka.append(tlacitko);
       });
 

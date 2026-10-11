@@ -1,0 +1,2 @@
+# Vlastní stránka pro neexistující adresu (pro servery Apache)
+ErrorDocument 404 /404.html

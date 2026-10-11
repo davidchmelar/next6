@@ -332,6 +332,21 @@ p { margin: 0 0 1em; }
 
 /* ---------- Nabídka akcí ---------- */
 .nabidka-nadpis { text-align: center; margin: 0 0 52px; }
+.skupina + .skupina { margin-top: 88px; }
+.skupina-nadpis {
+  display: flex; align-items: center; gap: 16px;
+  font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0 0 32px;
+}
+.skupina-nadpis::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--linka-silna), transparent);
+}
+.skupina-pocet {
+  font-family: var(--body); font-weight: 700; font-size: .9rem; letter-spacing: 0;
+  color: var(--zlata-text); border: 1px solid var(--linka-silna);
+  border-radius: 999px; padding: 3px 12px;
+}
+.skupina .katalog { justify-content: start; }
 .katalog {
   display: grid; gap: 28px;
   grid-template-columns: repeat(auto-fit, minmax(290px, 420px));
@@ -366,6 +381,15 @@ p { margin: 0 0 1em; }
   box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
 }
 .odznak--zavreno { color: var(--text-2); }
+.odznak--zruseno {
+  color: #FFFFFF; background: #B3261E; border-color: rgba(255, 255, 255, .5);
+  text-decoration: none;
+}
+.zrusena-hlaska {
+  margin: 0 0 18px; padding: 14px 18px; border-radius: 14px;
+  background: #FDECEA; border: 1px solid rgba(179, 38, 30, .35); color: #7A1A15;
+}
+.zrusena-hlaska strong { color: #B3261E; }
 .zajezd__telo { display: flex; flex-direction: column; flex: 1; padding: 24px 26px 26px; }
 .zajezd h3 { font-size: 1.45rem; margin-bottom: 12px; }
 .zajezd h3 a { color: inherit; text-decoration: none; }
@@ -425,6 +449,15 @@ p { margin: 0 0 1em; }
   box-shadow: 0 0 0 4px var(--pozadi), 0 0 10px rgba(230, 186, 80, .5);
 }
 .program__cas { font-weight: 800; color: var(--zlata-text); }
+.program--bez-casu li { grid-template-columns: minmax(0, 1fr); }
+.program--bez-casu .program__cas { display: none; }
+
+.plakat {
+  display: block; max-width: 420px; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--linka); box-shadow: var(--stin-maly);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.plakat:hover { transform: translateY(-3px); box-shadow: var(--stin); }
 
 .info-box {
   position: sticky; top: 100px; padding: 28px; border-radius: var(--radius);
