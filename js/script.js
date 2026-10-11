@@ -287,11 +287,11 @@ const FOTOGALERIE = [
     fotky: []
   },
     {
-    akce: "ZOO Praha",
-    idAkce: "zoo-praha",
+    akce: "Jedu na Labe",
+    idAkce: "jedunalabe",
     datum: "",
-    slozka: "images/galerie/zoo-praha/",
-    pocet: 11,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    slozka: "images/galerie/jedunalabe/",
+    pocet: 6,                    // počet fotek 01.jpg, 02.jpg … ve složce
     pripona: "jpg",
     fotky: []
   },
