@@ -93,7 +93,7 @@ const AKCE = [
     misto: "V Praze",
     datum: "2026-10-14",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
-    probehlo: false,
+    probehlo: true,
     vNabidce: false,
     doprava: "Vlak",
     sraz: "HK hlavní nádraží ",
