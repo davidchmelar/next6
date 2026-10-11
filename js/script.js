@@ -89,7 +89,7 @@ const AKCE = [
     nazev: "Sherlock Holmes",
     typ: "",
     zruseno: true,
-    duvodZruseni: "Akci rušíme, protože se přihlásilo málo lidí. Děkujeme všem, kteří měli zájem.",
+    duvodZruseni: "Akce zrušno, z důvodu malý počet zájemců",
     misto: "Praha",
     datum: "",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
