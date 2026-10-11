@@ -93,7 +93,7 @@ const AKCE = [
     misto: "V Praze",
     datum: "2026-10-14",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
-    probehlo: true,
+    probehlo: false,
     vNabidce: false,
     doprava: "Vlak",
     sraz: "HK hlavní nádraží ",
@@ -374,10 +374,13 @@ function stavAkce(a) {
   return { otevreno: true, text: text ? text.charAt(0).toUpperCase() + text.slice(1) : "" };
 }
 
+function zrusena(a) { return a.zruseno === true; }
+
 function rozdelAkce() {
   return {
-    budouci: AKCE.filter(a => !probehla(a)),
-    minule: AKCE.filter(probehla)
+    budouci: AKCE.filter(a => !zrusena(a) && !probehla(a)),
+    zrusene: AKCE.filter(zrusena),
+    minule: AKCE.filter(a => !zrusena(a) && probehla(a))
   };
 }
 
@@ -449,13 +452,13 @@ function kartaAkce(a) {
 function vykresliNabidku(seznam) {
   seznam.textContent = "";
   seznam.classList.remove("katalog");
-  const { budouci, minule } = rozdelAkce();
-  if (!budouci.length && !minule.length) {
+  const { budouci, zrusene, minule } = rozdelAkce();
+  if (!budouci.length && !zrusene.length && !minule.length) {
     seznam.append(prazdnyStav("Další akci právě připravujeme", "Termín a místo zveřejníme tady a na sociálních sítích."));
     return;
   }
   seznam.classList.add("katalog");
-  [...budouci, ...minule].forEach(a => seznam.append(kartaAkce(a)));
+  [...budouci, ...zrusene, ...minule].forEach(a => seznam.append(kartaAkce(a)));
 }
 
 function skupinaAkci(nadpis, akce, prazdny) {
@@ -470,12 +473,15 @@ function skupinaAkci(nadpis, akce, prazdny) {
 
 function vykresliNabidkuPoSkupinach(seznam) {
   seznam.textContent = "";
-  const { budouci, minule } = rozdelAkce();
+  const { budouci, zrusene, minule } = rozdelAkce();
   seznam.append(skupinaAkci(
     "Připravujeme",
     budouci,
     prazdnyStav("Další akci právě připravujeme", "Termín a místo zveřejníme tady a na sociálních sítích.")
   ));
+  if (zrusene.length) {
+    seznam.append(skupinaAkci("Zrušené akce", zrusene, null));
+  }
   if (minule.length) {
     seznam.append(skupinaAkci("Proběhlé akce", minule, null));
   }
