@@ -309,7 +309,7 @@ const FOTOGALERIE = [
     idAkce: "iqlandia",
     datum: "",
     slozka: "images/galerie/iqlandia/",
-    pocet: 5,
+    pocet: 3,
     pripona: "jpg",
     fotky: []
   }
