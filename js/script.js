@@ -89,7 +89,7 @@ const AKCE = [
     nazev: "Sherlock Holmes",
     typ: "",
     zruseno: true,
-    duvodZruseni: "Akci rušíme, protože se přihlásilo málo lidí. Děkujeme všem, kteří měli zájem.",
+    duvodZruseni: "Akce zrušno, z důvodu malý počet zájemců",
     misto: "Praha",
     datum: "",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
@@ -286,12 +286,30 @@ const FOTOGALERIE = [
     pripona: "jpg",
     fotky: []
   },
+    {
+    akce: "Jedu na Labe",
+    idAkce: "jedunalabe",
+    datum: "",
+    slozka: "images/galerie/jedunalabe/",
+    pocet: 5,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pripona: "jpg",
+    fotky: []
+  },
+    {
+    akce: "Titanic Praha",
+    idAkce: "titanic",
+    datum: "",
+    slozka: "images/galerie/titanic/",
+    pocet: 6,                    // počet fotek 01.jpg, 02.jpg … ve složce
+    pripona: "jpg",
+    fotky: []
+  },
   {
     akce: "iQLANDIA Liberec",
     idAkce: "iqlandia",
     datum: "",
     slozka: "images/galerie/iqlandia/",
-    pocet: 5,
+    pocet: 3,
     pripona: "jpg",
     fotky: []
   }
