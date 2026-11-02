@@ -89,7 +89,7 @@ const AKCE = [
     nazev: "Sherlock Holmes",
     typ: "",
     zruseno: true,
-    duvodZruseni: "Akce zrušno, z důvodu malý počet zájemců",
+    duvodZruseni: "Akci rušíme, protože se přihlásilo málo lidí. Děkujeme všem, kteří měli zájem.",
     misto: "Praha",
     datum: "",                   // pište ve tvaru RRRR-MM-DD
     datumDo: "",
@@ -286,139 +286,16 @@ const FOTOGALERIE = [
     pripona: "jpg",
     fotky: []
   },
-    {
-    akce: "Jedu na Labe",
-    idAkce: "jedunalabe",
-    datum: "",
-    slozka: "images/galerie/jedunalabe/",
-    pocet: 5,                    // počet fotek 01.jpg, 02.jpg … ve složce
-    pripona: "jpg",
-    fotky: []
-  },
-    {
-    akce: "Titanic Praha",
-    idAkce: "titanic",
-    datum: "",
-    slozka: "images/galerie/titanic/",
-    pocet: 6,                    // počet fotek 01.jpg, 02.jpg … ve složce
-    pripona: "jpg",
-    fotky: []
-  },
   {
     akce: "iQLANDIA Liberec",
     idAkce: "iqlandia",
     datum: "",
     slozka: "images/galerie/iqlandia/",
-    pocet: 3,
+    pocet: 5,
     pripona: "jpg",
     fotky: []
   }
 ];
-
-/* ---------- 6) Merch NESLHK ---------- */
-// Trička, mikiny a kšiltovky, které jako NEXT6 nabízíme.
-// Obrázky leží ve složce images/merch/.
-//
-// Novou barvu přidáte do "barvy": nazev je popisek, kod je číslo barvy
-// od dodavatele, hex je barevný puntík na webu a soubor je cesta k obrázku.
-// Celý produkt se skryje, když mu smažete všechny barvy.
-const MERCH = [
-  {
-    id: "triko-panske",
-    nazev: "Tričko pánské Action 150",
-    popis: "Lehké sportovní tričko. Vpředu malé logo NESLHK.COM, na zádech barevný strom.",
-    barvy: [
-      { nazev: "černá", kod: "01", hex: "#202125", soubor: "images/merch/triko-panske-cerna.jpg" },
-      { nazev: "bílá", kod: "00", hex: "#E3E3E5", soubor: "images/merch/triko-panske-bila.jpg" },
-      { nazev: "světlý antracit", kod: "83", hex: "#5A5D63", soubor: "images/merch/triko-panske-antracit.jpg" },
-      { nazev: "námořní modrá", kod: "02", hex: "#1E2844", soubor: "images/merch/triko-panske-namorni.jpg" },
-      { nazev: "ombre blue", kod: "72", hex: "#404654", soubor: "images/merch/triko-panske-ombre.jpg" },
-      { nazev: "petrolejová modrá", kod: "93", hex: "#1C525E", soubor: "images/merch/triko-panske-petrol.jpg" },
-      { nazev: "snorkel blue", kod: "70", hex: "#1D5A88", soubor: "images/merch/triko-panske-snorkel.jpg" },
-      { nazev: "granátová", kod: "86", hex: "#741C2C", soubor: "images/merch/triko-panske-granat.jpg" },
-      { nazev: "formula red", kod: "71", hex: "#CB1E2C", soubor: "images/merch/triko-panske-cervena.jpg" },
-      { nazev: "bourbon vanilla", kod: "85", hex: "#E6DAC2", soubor: "images/merch/triko-panske-vanilka.jpg" }    ]
-  },
-  {
-    id: "triko-damske",
-    nazev: "Tričko dámské Action 152",
-    popis: "Dámský střih stejné řady. Vpředu logo NESLHK.COM, na zádech barevný strom.",
-    barvy: [
-      { nazev: "černá", kod: "01", hex: "#1D1E22", soubor: "images/merch/triko-damske-cerna.jpg" },
-      { nazev: "bílá", kod: "00", hex: "#DADADA", soubor: "images/merch/triko-damske-bila.jpg" },
-      { nazev: "světlý antracit", kod: "83", hex: "#575A60", soubor: "images/merch/triko-damske-antracit.jpg" },
-      { nazev: "námořní modrá", kod: "02", hex: "#1B2541", soubor: "images/merch/triko-damske-namorni.jpg" },
-      { nazev: "ombre blue", kod: "72", hex: "#3D4351", soubor: "images/merch/triko-damske-ombre.jpg" },
-      { nazev: "petrolejová modrá", kod: "93", hex: "#194F5B", soubor: "images/merch/triko-damske-petrol.jpg" },
-      { nazev: "snorkel blue", kod: "70", hex: "#1A5785", soubor: "images/merch/triko-damske-snorkel.jpg" },
-      { nazev: "granátová", kod: "86", hex: "#711929", soubor: "images/merch/triko-damske-granat.jpg" },
-      { nazev: "formula red", kod: "71", hex: "#C81B29", soubor: "images/merch/triko-damske-cervena.jpg" },
-      { nazev: "bourbon vanilla", kod: "85", hex: "#E3D7BF", soubor: "images/merch/triko-damske-vanilka.jpg" }    ]
-  },
-  {
-    id: "mikina-clasica",
-    nazev: "Mikina bez kapuce Clasica",
-    popis: "Klasická mikina bez kapuce, unisex velikosti.",
-    barvy: [
-      { nazev: "černá", kod: "02", hex: "#1F2024", soubor: "images/merch/mikina-clasica-cerna.jpg" },
-      { nazev: "bílá", kod: "01", hex: "#E3E3E3", soubor: "images/merch/mikina-clasica-bila.jpg" },
-      { nazev: "melírová šedá", kod: "58", hex: "#B9B4B0", soubor: "images/merch/mikina-clasica-melir.jpg" },
-      { nazev: "tmavě šedá", kod: "46", hex: "#46484E", soubor: "images/merch/mikina-clasica-tmavesed.jpg" },
-      { nazev: "navy", kod: "55", hex: "#1E2C4B", soubor: "images/merch/mikina-clasica-navy.jpg" },
-      { nazev: "royal modrá", kod: "05", hex: "#1A4AA4", soubor: "images/merch/mikina-clasica-royal.jpg" },
-      { nazev: "granátová", kod: "57", hex: "#6A1A2A", soubor: "images/merch/mikina-clasica-granat.jpg" },
-      { nazev: "červená", kod: "60", hex: "#C01A28", soubor: "images/merch/mikina-clasica-cervena.jpg" },
-      { nazev: "lahvově zelená", kod: "56", hex: "#18462E", soubor: "images/merch/mikina-clasica-zelena.jpg" }    ]
-  },
-  {
-    id: "mikina-kapuce-panska",
-    nazev: "Mikina s kapucí pánská Urban",
-    popis: "Mikina s kapucí v pánském střihu.",
-    barvy: [
-      { nazev: "černá", kod: "02", hex: "#28292D", soubor: "images/merch/mikina-kapuce-panska-cerna.jpg" },
-      { nazev: "bílá", kod: "01", hex: "#F7F7F3", soubor: "images/merch/mikina-kapuce-panska-bila.jpg" },
-      { nazev: "šedý melír", kod: "58", hex: "#CDCDC9", soubor: "images/merch/mikina-kapuce-panska-melir.jpg" },
-      { nazev: "navy", kod: "55", hex: "#273554", soubor: "images/merch/mikina-kapuce-panska-navy.jpg" },
-      { nazev: "royal modrá", kod: "05", hex: "#2353AD", soubor: "images/merch/mikina-kapuce-panska-royal.jpg" },
-      { nazev: "granátová", kod: "57", hex: "#732333", soubor: "images/merch/mikina-kapuce-panska-granat.jpg" },
-      { nazev: "červená", kod: "60", hex: "#C92331", soubor: "images/merch/mikina-kapuce-panska-cervena.jpg" },
-      { nazev: "hnědá", kod: "", hex: "#946E5B", soubor: "images/merch/mikina-kapuce-panska-hneda.jpg" },
-      { nazev: "lahvově zelená", kod: "56", hex: "#214F37", soubor: "images/merch/mikina-kapuce-panska-zelena.jpg" }    ]
-  },
-  {
-    id: "mikina-kapuce-damska",
-    nazev: "Mikina s kapucí dámská Urban",
-    popis: "Mikina s kapucí v dámském střihu.",
-    barvy: [
-      { nazev: "černá", kod: "02", hex: "#25262A", soubor: "images/merch/mikina-kapuce-damska-cerna.jpg" },
-      { nazev: "bílá", kod: "01", hex: "#E2E2E2", soubor: "images/merch/mikina-kapuce-damska-bila.jpg" },
-      { nazev: "šedý melír", kod: "58", hex: "#C6C6C2", soubor: "images/merch/mikina-kapuce-damska-melir.jpg" },
-      { nazev: "navy", kod: "55", hex: "#243251", soubor: "images/merch/mikina-kapuce-damska-navy.jpg" },
-      { nazev: "royal modrá", kod: "05", hex: "#2050AA", soubor: "images/merch/mikina-kapuce-damska-royal.jpg" },
-      { nazev: "červená", kod: "60", hex: "#C6202E", soubor: "images/merch/mikina-kapuce-damska-cervena.jpg" }    ]
-  },
-  {
-    id: "ksiltovka",
-    nazev: "Kšiltovka Calisto",
-    popis: "Kšiltovka se stromem vepředu a logem NESLHK.COM na boku.",
-    barvy: [
-      { nazev: "černá", kod: "02", hex: "#020307", soubor: "images/merch/ksiltovka-cerna.jpg" },
-      { nazev: "bílá", kod: "01", hex: "#C6C6C2", soubor: "images/merch/ksiltovka-bila.jpg" },
-      { nazev: "navy", kod: "55", hex: "#010C2C", soubor: "images/merch/ksiltovka-navy.jpg" },
-      { nazev: "royal modrá", kod: "05", hex: "#012E88", soubor: "images/merch/ksiltovka-royal.jpg" },
-      { nazev: "červená", kod: "60", hex: "#BA0312", soubor: "images/merch/ksiltovka-cervena.jpg" },
-      { nazev: "zelená", kod: "226", hex: "#016A1E", soubor: "images/merch/ksiltovka-zelena.jpg" },
-      { nazev: "žlutá", kod: "03", hex: "#D0A400", soubor: "images/merch/ksiltovka-zluta.jpg" }    ]
-  }
-];
-
-// Text pod nabídkou merche. Co necháte prázdné, se nezobrazí.
-const MERCH_INFO = {
-  cenik: "",            // např. "Tričko 350 Kč, mikina 750 Kč, kšiltovka 250 Kč"
-  velikosti: "",        // např. "Velikosti S až XXL, dámské S až XL"
-  objednavka: "",       // např. odkaz na formulář
-  poznamka: "Napište nám a domluvíme velikost, barvu i cenu."
-};
 
 
 /* =========================================================
@@ -1313,160 +1190,12 @@ function nastavMenu() {
 }
 
 /* ---------- Spuštění ---------- */
-/* ---------- Merch ---------- */
-function kartaMerch(produkt) {
-  const karta = document.createElement("article");
-  karta.className = "merch";
-  karta.id = "merch-" + produkt.id;
-
-  const prvni = produkt.barvy[0];
-
-  const obrazek = document.createElement("a");
-  obrazek.className = "merch__obrazek";
-  obrazek.href = prvni.soubor;
-  obrazek.target = "_blank";
-  obrazek.rel = "noopener";
-  obrazek.title = "Zvětšit obrázek";
-
-  const img = document.createElement("img");
-  img.src = prvni.soubor;
-  img.alt = produkt.nazev + " – " + prvni.nazev;
-  img.loading = "lazy";
-  img.decoding = "async";
-  img.width = 1400;
-  img.height = 940;
-  obrazek.append(img);
-
-  const telo = document.createElement("div");
-  telo.className = "merch__telo";
-
-  const nadpis = document.createElement("h2");
-  nadpis.className = "merch__nazev";
-  nadpis.textContent = produkt.nazev;
-  telo.append(nadpis);
-
-  if (produkt.popis) {
-    const popis = document.createElement("p");
-    popis.className = "merch__popis";
-    popis.textContent = produkt.popis;
-    telo.append(popis);
-  }
-
-  const stitek = document.createElement("p");
-  stitek.className = "merch__vybrano";
-  const jmenoBarvy = document.createElement("span");
-  jmenoBarvy.className = "merch__vybrano-nazev";
-  const kodBarvy = document.createElement("span");
-  kodBarvy.className = "merch__vybrano-kod";
-  stitek.append(jmenoBarvy, kodBarvy);
-  telo.append(stitek);
-
-  const paleta = document.createElement("div");
-  paleta.className = "merch__barvy";
-  paleta.setAttribute("role", "group");
-  paleta.setAttribute("aria-label", "Barvy – " + produkt.nazev);
-
-  const tlacitka = [];
-
-  function vyber(index) {
-    const barva = produkt.barvy[index];
-    img.src = barva.soubor;
-    img.alt = produkt.nazev + " – " + barva.nazev;
-    obrazek.href = barva.soubor;
-    jmenoBarvy.textContent = barva.nazev;
-    kodBarvy.textContent = barva.kod ? "kód " + barva.kod : "";
-    tlacitka.forEach((t, i) => {
-      t.setAttribute("aria-pressed", i === index ? "true" : "false");
-      t.classList.toggle("je-vybrana", i === index);
-    });
-  }
-
-  produkt.barvy.forEach((barva, index) => {
-    const tlacitko = document.createElement("button");
-    tlacitko.type = "button";
-    tlacitko.className = "merch__puntik";
-    tlacitko.style.setProperty("--barva", barva.hex);
-    tlacitko.title = barva.nazev + (barva.kod ? " (" + barva.kod + ")" : "");
-    tlacitko.setAttribute("aria-label", barva.nazev);
-    tlacitko.setAttribute("aria-pressed", "false");
-    tlacitko.addEventListener("click", () => vyber(index));
-    tlacitka.push(tlacitko);
-    paleta.append(tlacitko);
-  });
-
-  telo.append(paleta);
-
-  const pocet = document.createElement("p");
-  pocet.className = "merch__pocet";
-  const n = produkt.barvy.length;
-  pocet.textContent = n + " " + (n === 1 ? "barva" : (n < 5 ? "barvy" : "barev")) + " na výběr";
-  telo.append(pocet);
-
-  vyber(0);
-
-  karta.append(obrazek, telo);
-  return karta;
-}
-
-function zobrazMerch() {
-  const seznam = document.getElementById("merch-seznam");
-  if (!seznam) return;
-
-  const produkty = (typeof MERCH !== "undefined" ? MERCH : []).filter(p => p.barvy && p.barvy.length);
-  seznam.textContent = "";
-
-  if (!produkty.length) {
-    const prazdno = document.createElement("p");
-    prazdno.className = "prazdno";
-    prazdno.textContent = "Merch právě chystáme.";
-    seznam.append(prazdno);
-  } else {
-    produkty.forEach(p => seznam.append(kartaMerch(p)));
-  }
-
-  const info = document.getElementById("merch-info");
-  if (!info) return;
-  const nastaveni = (typeof MERCH_INFO !== "undefined" ? MERCH_INFO : {});
-  const radky = [
-    ["Ceník", nastaveni.cenik],
-    ["Velikosti", nastaveni.velikosti],
-    ["Objednávka", nastaveni.objednavka]
-  ].filter(r => r[1]);
-
-  if (!radky.length && !nastaveni.poznamka) { info.hidden = true; return; }
-  info.hidden = false;
-  const obsah = info.querySelector(".merch-info__obsah");
-  if (!obsah) return;
-  obsah.textContent = "";
-
-  radky.forEach(([nazev, hodnota]) => {
-    const radek = document.createElement("div");
-    radek.className = "merch-info__radek";
-    const popisek = document.createElement("span");
-    popisek.className = "merch-info__popisek";
-    popisek.textContent = nazev;
-    const text = document.createElement("span");
-    text.className = "merch-info__hodnota";
-    text.textContent = hodnota;
-    radek.append(popisek, text);
-    obsah.append(radek);
-  });
-
-  if (nastaveni.poznamka) {
-    const poznamka = document.createElement("p");
-    poznamka.className = "merch-info__poznamka";
-    poznamka.textContent = nastaveni.poznamka;
-    obsah.append(poznamka);
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   nastavMenu();
   zobrazNabidkuNaUvodu();
   zobrazAkce();
   zobrazTym();
   zobrazFotogalerii();
-  zobrazMerch();
   zobrazKontakt();
   zobrazSouhlas();
   zobrazStatistiky();

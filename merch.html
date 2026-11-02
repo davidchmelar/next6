@@ -1,19 +1,133 @@
-<!DOCTYPE html>
-<html lang="cs">
+<!doctype html>
+<html lang="cs" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merch – NEXT6</title>
-  <meta name="description" content="Trička, mikiny a kšiltovky studentské firmy NEXT6. Vyberte si barvu.">
-  <meta property="og:title" content="Merch – NEXT6">
-  <meta property="og:description" content="Trička, mikiny a kšiltovky studentské firmy NEXT6. Vyberte si barvu.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.next6project.com/merch.html">
-  <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
-  <link rel="icon" type="image/png" href="images/logo-next6.png">
-  <link rel="preload" href="fonts/figtree-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=8">
-  <script src="js/script.js?v=8" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Objednávka školního oblečení NESLHK – trička, mikiny a kšiltovky s vyšitým logem.">
+<title>Merch – NEXT6</title>
+<meta property="og:title" content="Merch – NEXT6">
+<meta property="og:description" content="Objednávka školního oblečení – trička, mikiny a kšiltovky s vyšitým logem.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.next6project.com/merch.html">
+<meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
+<link rel="icon" type="image/png" href="images/logo-next6.png">
+<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: one long form split into numbered sections like a paper order sheet; sticky total bar at the bottom. School colours as section markers. */
+:root{
+  --bg:#fbfbf8; --card:#ffffff; --fg:#1d1f24; --muted:#5f6470; --line:#e2e1da;
+  --red:#e3192f; --green:#9bc11c; --blue:#3fb2e6; --yellow:#f2c500;
+  --accent:#1a7fb3; --accent-fg:#ffffff; --ok:#2e7d32; --err:#c62828; --chip:#f1f0ea;
+  --display:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15171b; --card:#1d2026; --fg:#eceef2; --muted:#a3a8b3; --line:#2f333b;
+  --accent:#5cc3f2; --accent-fg:#0d1a22; --ok:#6fcf74; --err:#ff7b7b; --chip:#262a31; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15171b; --card:#1d2026; --fg:#eceef2; --muted:#a3a8b3; --line:#2f333b;
+  --accent:#5cc3f2; --accent-fg:#0d1a22; --ok:#6fcf74; --err:#ff7b7b; --chip:#262a31; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-block:24px 120px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,6vw,42px);font-weight:800}
+h2{font-size:24px;font-weight:800}
+.stripe{display:flex;height:8px;border-radius:4px;overflow:hidden}
+.stripe i{flex:1}.stripe i:nth-child(1){background:var(--red)}.stripe i:nth-child(2){background:var(--green)}.stripe i:nth-child(3){background:var(--blue)}.stripe i:nth-child(4){background:var(--yellow)}
+header.merch-hero{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+header.merch-hero p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+.logo-badge{background:#fff;border-radius:16px;padding:12px;width:150px}
+.logo-badge img{display:block}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;scroll-margin-top:16px}
+.sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.dot{width:12px;height:12px;border-radius:50%;flex:none;align-self:center}
+.product{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:20px;align-items:start}
+.mock{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:100%}
+.mock figure{margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.pic{background:#f1f1ee;border-radius:12px;padding:8px;aspect-ratio:1/1.08;display:grid;place-items:center}
+.pic svg{width:100%;height:100%}
+details.more{border-top:1px solid var(--line);padding-top:10px}
+details.more summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--accent)}
+details.more dl{display:grid;gap:6px;margin:10px 0}
+details.more dl div{display:grid;grid-template-columns:110px 1fr;gap:10px;font-size:14px}
+details.more dt{color:var(--muted)}details.more dd{margin:0}
+details.more a{color:var(--accent)}
+.pic.photo{background:#fff;padding:0;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:contain;display:block}
+.mock figcaption{font-size:12px;color:var(--muted);text-align:center}
+.info{display:flex;flex-direction:column;gap:12px;min-width:0}
+.meta{color:var(--muted);font-size:14px;margin:0}
+.price{font-family:var(--display);font-weight:800;font-size:22px}
+.price small{font-family:var(--body);font-weight:400;font-size:14px;color:var(--muted)}
+.row-label{font-size:14px;font-weight:700}
+.colors{display:flex;gap:8px;flex-wrap:wrap}
+.colors label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer;font-size:14px}
+.colors input{position:absolute;opacity:0;pointer-events:none}
+.colors .sw{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.2)}
+.colors label:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.colors label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.sizes{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.sz{display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid var(--line);border-radius:10px;padding:8px 4px}
+.sz b{font-size:14px}
+.szp{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:18px;line-height:1;cursor:pointer}
+.step button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.step output{min-width:20px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700}
+.sz.has{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.sub{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-weight:700;font-size:14px}
+.f input,.f select,.f textarea{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.req{color:var(--red)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.check input{width:20px;height:20px;margin-top:2px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right}
+.tbl{overflow-x:auto}
+.total-row td{font-weight:700;border-bottom:none;font-size:16px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 20px;background:var(--accent);color:var(--accent-fg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.msg{border-radius:10px;padding:12px 14px;font-size:15px}
+.msg.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--fg);border:1px solid var(--ok)}
+.msg.err{background:color-mix(in srgb,var(--err) 12%,transparent);border:1px solid var(--err)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:5}
+.bar-in{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar .sum{font-family:var(--display);font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
+.bar .cnt{font-size:13px;color:var(--muted)}
+nav.toc{display:flex;gap:6px;flex-wrap:wrap}
+nav.toc a{font-size:13px;color:var(--fg);text-decoration:none;background:var(--chip);border-radius:999px;padding:4px 10px}
+nav.toc a .k{font-variant-numeric:tabular-nums;color:var(--muted);margin-right:4px}
+.mailbox{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.mailbox p{margin:0;font-size:14px;color:var(--muted)}
+.mailrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.mailrow code{background:var(--chip);padding:4px 8px;border-radius:6px;user-select:all}
+.btn.small{padding:6px 12px;font-size:14px;align-self:flex-start}
+pre.copy{white-space:pre-wrap;background:var(--chip);padding:12px;border-radius:10px;font-size:13px;margin:0}
+@media (max-width:620px){
+  header.merch-hero{grid-template-columns:1fr}
+  .logo-badge{width:120px;order:-1}
+  .product{grid-template-columns:1fr}
+  .mock{max-width:420px}
+  .fields{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<style>/* zapojeni do webu NEXT6 */
+.paticka{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+main>.wrap{padding-bottom:40px}
+</style>
 </head>
 <body>
 
@@ -37,28 +151,458 @@
     </div>
   </header>
 
-  <main>
-    <section class="stranka-zahlavi">
-      <div class="obal">
-        <h1>Merch</h1>
-        <p>Trička, mikiny a kšiltovky našeho projektu. U každého kusu si můžete kliknutím na barevné kolečko přepnout barvu a podívat se, jak vypadá.</p>
-      </div>
-    </section>
 
-    <section class="sekce sekce--nabidka">
-      <div class="obal">
-        <div class="merch-seznam" id="merch-seznam"></div>
+<main>
 
-        <div class="merch-info" id="merch-info" hidden>
-          <h2>Jak si merch objednat</h2>
-          <div class="merch-info__obsah"></div>
-          <p class="tlacitka" style="margin-top:22px">
-            <a class="tlacitko tlacitko--zlate" href="kontakt.html">Napsat nám</a>
-          </p>
+<div class="wrap">
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <header class="merch-hero">
+    <div>
+      <span class="tag">Objednávka školního oblečení</span>
+      <h1>Školní merch NESLHK</h1>
+      <p>Vyber si trička, mikiny nebo kšiltovku. Všechna loga jsou vyšitá. Vepředu na prsou je malé logo NESLHK.COM, na zádech strom. Kšiltovka má strom vepředu a logo NESLHK.COM na levém boku. Každý produkt má svou sekci, dámské a pánské střihy jsou oddělené. U každé velikosti nastav počet kusů a na konci objednávku odešli.</p>
+    </div>
+    <div class="logo-badge"><img src="images/merch/logo-neslhk.png" alt="Logo NESLHK.COM" width="150" height="150"></div>
+  </header>
+  <nav class="toc" id="toc" aria-label="Sekce formuláře"></nav>
+
+  <section class="sec" id="kontakt">
+    <div class="sec-head"><span class="dot" style="background:var(--red)"></span><span class="tag" id="kontakt-tag">Sekce 1</span><h2>Kdo objednává</h2></div>
+    <div class="fields">
+      <div class="f"><label for="jmeno">Jméno a příjmení <span class="req">*</span></label><input id="jmeno" autocomplete="name" placeholder="např. Jana Nováková"></div>
+      <div class="f"><label for="role">Jsem <span class="req">*</span></label>
+        <select id="role"><option value="">Vyber…</option><option>žák / žákyně</option><option>zaměstnanec školy</option><option>rodič</option><option>absolvent</option></select></div>
+      <div class="f"><label for="trida">Třída</label><input id="trida" placeholder="např. 3.A"></div>
+      <div class="f"><label for="email">E-mail <span class="req">*</span></label><input id="email" type="email" autocomplete="email" placeholder="jmeno@email.cz"></div>
+    </div>
+  </section>
+
+  <div id="products" style="display:flex;flex-direction:column;gap:20px"></div>
+
+  <section class="sec" id="shrnuti">
+    <div class="sec-head"><span class="dot" style="background:var(--yellow)"></span><span class="tag" id="shrnuti-tag">Sekce</span><h2>Shrnutí a odeslání</h2></div>
+    <div class="tbl"><table id="sumtable"></table></div>
+    <div class="f full"><label for="poznamka">Poznámka</label><textarea id="poznamka" rows="3" placeholder="např. potisk i na zádech, vyzvednu si osobně…"></textarea></div>
+    <input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
+    <label class="check"><input type="checkbox" id="souhlas"><span>Souhlasím, že objednávka je závazná a zaplatím ji podle pokynů školy. Souhlasím se zpracováním jména, třídy a e-mailu pro vyřízení objednávky. <span class="req">*</span></span></label>
+    <div id="status" hidden></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="send" type="button">Odeslat objednávku</button>
+      <button class="btn ghost" id="reset" type="button">Vymazat formulář</button>
+    </div>
+  </section>
+
+</div>
+
+<div class="bar"><div class="bar-in">
+  <div><div class="sum" id="bar-sum">0 Kč</div><div class="cnt" id="bar-cnt">Zatím nic v objednávce</div></div>
+  <a class="btn" href="#shrnuti" style="text-decoration:none">Ke shrnutí</a>
+</div></div>
+
+<script>
+// Kreslení oblečení (SVG) – předek a záda. garmentSVG(shape, view, hex, LOGOS)
+const Garments = (()=>{
+  let uidc = 0;
+  const hex2 = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  const mix = (h, t, k) => { const a=hex2(h), b=hex2(t); return "#"+a.map((v,i)=>Math.round(v+(b[i]-v)*k).toString(16).padStart(2,"0")).join(""); };
+  const lum = h => { const [r,g,b]=hex2(h); return (0.299*r+0.587*g+0.114*b)/255; };
+
+  const TEE_M = "M232,66 C210,76 175,88 150,96 L62,188 C75,212 92,235 108,252 L168,214 C172,330 170,470 166,598 C255,606 345,606 434,598 C430,470 428,330 432,214 L492,252 C508,235 525,212 538,188 L450,96 C425,88 390,76 368,66 ";
+  const TEE_M_FN = "C352,108 328,128 300,128 C272,128 248,108 232,66 Z";
+  const TEE_W = "M240,70 C220,78 190,86 168,92 L100,170 C110,190 122,206 134,218 L180,196 C176,260 164,320 168,380 C172,450 184,520 178,600 C260,610 340,610 422,600 C416,520 428,450 432,380 C436,320 424,260 420,196 L466,218 C478,206 490,190 500,170 L432,92 C410,86 380,78 360,70 ";
+  const TEE_W_FN = "C346,110 326,126 300,126 C274,126 254,110 240,70 Z";
+  const CREW = "M232,62 C205,72 170,82 140,92 C100,112 82,180 76,300 L58,560 L58,610 L128,612 L130,560 L168,250 L170,612 L430,612 L432,250 L470,560 L472,612 L542,610 L542,560 L524,300 C518,180 500,112 460,92 C430,82 395,72 368,62 ";
+  const CREW_FN = "C352,98 330,114 300,114 C270,114 248,98 232,62 Z";
+  const backNeck = (l,r,d) => `C${r-23},${d} ${l+23},${d} ${l},${66-(l===232?0:0)} Z`;
+
+  function stitch(d, c){ return `<path d="${d}" fill="none" stroke="${c}" stroke-width="1.6" stroke-dasharray="5 4" opacity=".75"/>`; }
+  function seam(d, c){ return `<path d="${d}" fill="none" stroke="${c}" stroke-width="1.6" opacity=".55"/>`; }
+  function ribs(x1,x2,y1,y2,c){ let s=""; for(let x=x1+4;x<x2;x+=6) s+=`M${x},${y1}L${x},${y2}`; return `<path d="${s}" stroke="${c}" stroke-width="1.2" opacity=".35"/>`; }
+  function folds(list, u){ return list.map(([d,w,dark])=>`<path d="${d}" fill="none" stroke="${dark?"#000":"#fff"}" stroke-width="${w}" stroke-linecap="round" opacity="${dark?.13:.12}" filter="url(#${u}-b)"/>`).join(""); }
+  function img(src,x,y,w,h){ return `<image href="${src}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet"/>`; }
+
+  function garmentSVG(shape, view, hex, L){
+    const u = "g"+(++uidc);
+    const dark = lum(hex) < 0.35;
+    const line = dark ? mix(hex,"#ffffff",.18) : mix(hex,"#000000",.28);
+    const st = dark ? mix(hex,"#ffffff",.32) : mix(hex,"#000000",.35);
+    const inside = mix(hex,"#000000",dark?.35:.3);
+    const nes = dark ? L.nesW : L.nes;
+    const front = view==="front";
+    let body="", details="", fold=[], stitches="", logo="", tf="", oy=30, extraTop="";
+    const NESR = 364/581, TREER = 484/465;
+
+    if(shape==="tee-m"){
+      body = TEE_M + (front?TEE_M_FN:"C345,80 255,80 232,66 Z");
+      if(front){
+        details += `<path d="M246,64 C262,60 338,60 354,64 C342,92 322,108 300,108 C278,108 258,92 246,64Z" fill="${inside}"/>`;
+        details += `<path d="M232,66 C248,108 272,128 300,128 C328,128 352,108 368,66 L354,64 C342,92 322,108 300,108 C278,108 258,92 246,64 Z" fill="${hex}" stroke="${line}" stroke-width="1.4"/>`;
+        stitches += stitch("M238,82 C256,120 276,138 300,138 C324,138 344,120 362,82", st);
+        logo = img(nes,322,150,82,82*NESR);
+      } else {
+        details += `<path d="M232,66 C255,80 345,80 368,66 L356,61 C338,71 262,71 244,61 Z" fill="${mix(hex,"#000000",.08)}" stroke="${line}" stroke-width="1.4"/>`;
+        stitches += stitch("M236,76 C258,90 342,90 364,76", st);
+        logo = img(L.tree,200,135,200,200*TREER);
+      }
+      stitches += stitch("M75,179 L121,243", st)+stitch("M525,179 L479,243", st)+stitch("M170,584 C255,591 345,591 430,584", st);
+      details += seam("M150,96 C160,140 166,180 168,214", line)+seam("M450,96 C440,140 434,180 432,214", line);
+      fold = [["M182,250 C230,300 252,360 246,440",12,1],["M418,250 C370,300 348,360 354,440",12,1]];
+    }
+    else if(shape==="tee-w"){
+      body = TEE_W + (front?TEE_W_FN:"C340,82 260,82 240,70 Z");
+      if(front){
+        details += `<path d="M252,68 C268,64 332,64 348,68 C338,94 320,108 300,108 C280,108 262,94 252,68Z" fill="${inside}"/>`;
+        details += `<path d="M240,70 C254,110 274,126 300,126 C326,126 346,110 360,70 L348,68 C338,94 320,108 300,108 C280,108 262,94 252,68 Z" fill="${hex}" stroke="${line}" stroke-width="1.4"/>`;
+        stitches += stitch("M246,86 C262,122 280,136 300,136 C320,136 338,122 354,86", st);
+        logo = img(nes,316,156,70,70*NESR);
+      } else {
+        details += `<path d="M240,70 C260,82 340,82 360,70 L350,65 C334,74 266,74 250,65 Z" fill="${mix(hex,"#000000",.08)}" stroke="${line}" stroke-width="1.4"/>`;
+        stitches += stitch("M244,80 C264,92 336,92 356,80", st);
+        logo = img(L.tree,215,140,170,170*TREER);
+      }
+      stitches += stitch("M111,162 L145,210", st)+stitch("M489,162 L455,210", st)+stitch("M182,586 C260,595 340,595 418,586", st);
+      details += seam("M168,92 C176,130 180,165 180,196", line)+seam("M432,92 C424,130 420,165 420,196", line);
+      fold = [["M186,240 C222,290 236,340 232,400",10,1],["M414,240 C378,290 364,340 368,400",10,1],["M190,390 C210,420 214,470 200,540",12,1],["M410,390 C390,420 386,470 400,540",12,1]];
+    }
+    else if(shape.startsWith("crew") || shape.startsWith("hood")){
+      const hood = shape.startsWith("hood");
+      if(shape.endsWith("-w")) tf = 'transform="translate(21,0) scale(.93,1)"';
+      if(hood) oy = 60;
+      body = CREW + ((front && !hood) ? CREW_FN : "C345,76 255,76 232,62 Z");
+      details += `<path d="M58,560 L128,562 M472,562 L542,560 M170,560 L430,560" stroke="${line}" stroke-width="1.6" fill="none"/>`;
+      details += ribs(58,128,562,610,line)+ribs(472,542,562,610,line)+ribs(170,430,562,612,line);
+      details += seam("M140,92 C152,140 162,200 168,250", line)+seam("M460,92 C448,140 438,200 432,250", line);
+      fold = [["M96,300 C112,340 116,400 108,470",12,1],["M504,300 C488,340 484,400 492,470",12,1],["M80,470 C96,462 112,470 124,464",8,1],["M520,470 C504,462 488,470 476,464",8,1],["M190,300 C220,360 228,450 214,540",14,1],["M410,300 C380,360 372,450 386,540",14,1]];
+      if(!hood){
+        if(front){
+          details += `<path d="M248,60 C264,56 336,56 352,60 C342,86 322,98 300,98 C278,98 258,86 248,60Z" fill="${inside}"/>`;
+          details += `<path d="M232,62 C248,98 270,114 300,114 C330,114 352,98 368,62 L352,60 C342,86 322,98 300,98 C278,98 258,86 248,60 Z" fill="${hex}" stroke="${line}" stroke-width="1.4"/>`;
+          details += `<path d="M232,62 C248,98 270,114 300,114 C330,114 352,98 368,62 L352,60 C342,86 322,98 300,98 C278,98 258,86 248,60 Z" fill="url(#${u}-rib)" opacity=".5"/>`;
+          logo = img(nes,322,146,82,82*NESR);
+        } else {
+          details += `<path d="M232,62 C255,76 345,76 368,62 L356,54 C338,66 262,66 244,54 Z" fill="${mix(hex,"#000000",.06)}" stroke="${line}" stroke-width="1.4"/>`;
+          logo = img(L.tree,195,125,210,210*TREER);
+        }
+      } else {
+        stitches += stitch("M60,556 L128,558 M472,558 L540,556 M172,556 L428,556", st);
+        if(front){
+          extraTop += `<path d="M206,92 C188,30 236,-14 300,-14 C364,-14 412,30 394,92 C372,80 340,74 300,74 C260,74 228,80 206,92 Z" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+          extraTop += `<path d="M236,96 C228,40 258,10 300,10 C342,10 372,40 364,96 C348,124 326,134 300,134 C274,134 252,124 236,96 Z" fill="${inside}"/>`;
+          extraTop += `<path d="M226,98 C214,30 254,0 300,0 C346,0 386,30 374,98 C356,132 330,146 300,146 C270,146 244,132 226,98 Z M236,96 C228,40 258,10 300,10 C342,10 372,40 364,96 C348,124 326,134 300,134 C274,134 252,124 236,96 Z" fill="${hex}" fill-rule="evenodd" stroke="${line}" stroke-width="1.4"/>`;
+          extraTop += stitch("M231,98 C220,34 256,5 300,5 C344,5 380,34 369,98", st);
+          extraTop += `<g stroke="${mix(hex,dark?"#ffffff":"#000000",.45)}" stroke-width="6" stroke-linecap="round" fill="none"><path d="M282,140 C280,160 278,180 276,200"/><path d="M318,140 C320,160 322,180 324,200"/></g>`;
+          extraTop += `<rect x="271" y="196" width="10" height="20" rx="3" fill="${line}"/><rect x="319" y="196" width="10" height="20" rx="3" fill="${line}"/>`;
+          details += `<path d="M200,390 L400,390 C406,430 420,480 440,544 L160,544 C180,480 194,430 200,390 Z" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+          details += stitch("M206,398 L394,398", st)+stitch("M204,400 C198,440 186,490 170,538",st)+stitch("M396,400 C402,440 414,490 430,538",st);
+          details += `<path d="M200,390 C194,430 180,480 160,544" fill="none" stroke="${mix(hex,"#000000",.4)}" stroke-width="3" opacity=".5"/><path d="M400,390 C406,430 420,480 440,544" fill="none" stroke="${mix(hex,"#000000",.4)}" stroke-width="3" opacity=".5"/>`;
+          logo = img(nes,340,168,76,76*NESR);
+        } else {
+          extraTop += `<path d="M212,92 C196,10 252,-22 300,-22 C348,-22 404,10 388,92 C382,148 342,178 300,180 C258,178 218,148 212,92 Z" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+          extraTop += seam("M300,-22 C300,40 300,120 300,180", line);
+          extraTop += `<path d="M212,92 C196,10 252,-22 300,-22 C348,-22 404,10 388,92 C382,148 342,178 300,180 C258,178 218,148 212,92 Z" fill="url(#${u}-sh)" opacity=".9"/>`;
+          logo = img(L.tree,195,215,210,210*TREER);
+        }
+      }
+    }
+    else if(shape==="cap"){
+      oy = 0;
+      if(view==="left"){
+        body = "M170,430 C160,300 220,190 330,180 C430,180 472,300 462,430 Z";
+        details += `<path d="M172,430 C130,424 70,436 36,462 C38,476 62,480 84,474 C122,462 160,452 186,446 Z" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+        details += stitch("M168,438 C130,436 84,448 54,464", st);
+        details += `<circle cx="330" cy="182" r="10" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+        details += seam("M326,188 C268,222 228,320 222,430", line)+seam("M336,188 C382,232 406,330 404,430", line);
+        details += `<circle cx="300" cy="246" r="5" fill="${inside}" stroke="${line}" stroke-width="1.5"/>`;
+        details += `<rect x="430" y="404" width="34" height="16" rx="3" fill="${mix(hex,"#000000",.12)}" stroke="${line}" stroke-width="1.2"/>`;
+        stitches += stitch("M176,418 C260,410 380,410 456,418", st);
+        fold = [["M240,250 C230,320 228,380 234,420",14,0],["M440,280 C448,340 448,390 446,420",14,1]];
+        logo = img(dark?L.txtW:L.txt,258,336,108,108*0.108);
+      } else {
+        body = "M140,430 C128,250 210,170 300,166 C390,170 472,250 460,430 Z";
+        details += `<circle cx="300" cy="170" r="11" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+        details += seam("M296,176 C240,200 206,300 202,430", line)+seam("M304,176 C360,200 394,300 398,430", line);
+        details += `<g fill="${inside}"><circle cx="236" cy="240" r="4"/><circle cx="364" cy="240" r="4"/></g>`;
+        stitches += stitch("M150,418 C220,404 380,404 450,418", st);
+        fold = [["M200,250 C190,310 186,370 190,420",14,0],["M420,260 C424,320 420,380 414,420",14,1]];
+        if(front){
+          details += `<path d="M120,430 C200,404 400,404 480,430 C512,462 474,500 440,500 C380,478 220,478 160,500 C126,500 88,462 120,430 Z" fill="${hex}" stroke="${line}" stroke-width="1.6"/>`;
+          details += stitch("M132,440 C210,418 390,418 468,440", st)+stitch("M140,456 C215,434 385,434 460,456", st)+stitch("M148,472 C220,452 380,452 452,472", st);
+          details += `<path d="M160,500 C220,478 380,478 440,500 C380,490 220,490 160,500Z" fill="${mix(hex,"#000000",.35)}"/>`;
+          logo = img(L.fig,228,282,144,144*0.425);
+        } else {
+          details += `<path d="M236,432 C236,372 364,372 364,432 Z" fill="${inside}"/>`;
+          details += `<path d="M236,432 C236,372 364,372 364,432" fill="none" stroke="${line}" stroke-width="2"/>`;
+          details += stitch("M228,432 C228,362 372,362 372,432", st);
+          details += `<rect x="222" y="398" width="156" height="16" rx="4" fill="${mix(hex,"#000000",.12)}" stroke="${line}" stroke-width="1.4"/><rect x="292" y="395" width="62" height="22" rx="4" fill="${mix(hex,"#000000",.2)}" stroke="${line}" stroke-width="1.4"/>`;
+          details += `<path d="M298,400 L348,400 M298,406 L348,406 M298,412 L348,412" stroke="${line}" stroke-width="1" opacity=".6"/>`;
+          logo = img(L.tree,262,262,76,76*TREER);
+        }
+      }
+    }
+
+    const defs = `<defs>
+      <path id="${u}-body" d="${body}"/>
+      <clipPath id="${u}-clip"><use href="#${u}-body"/></clipPath>
+      <linearGradient id="${u}-sh" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".24"/><stop offset=".2" stop-color="#000" stop-opacity=".04"/><stop offset=".5" stop-color="#fff" stop-opacity=".08"/><stop offset=".8" stop-color="#000" stop-opacity=".04"/><stop offset="1" stop-color="#000" stop-opacity=".24"/></linearGradient>
+      <linearGradient id="${u}-sv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".14"/></linearGradient>
+      <pattern id="${u}-rib" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M3,0V6" stroke="${line}" stroke-width="1"/></pattern>
+      <filter id="${u}-b" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+      <filter id="${u}-s" x="-30%" y="-300%" width="160%" height="700%"><feGaussianBlur stdDeviation="10"/></filter>
+    </defs>`;
+    const bottom = shape==="cap" ? 520 : 645;
+    const A = `<g ${tf}><use href="#${u}-body" fill="${hex}"/>${details}<g clip-path="url(#${u}-clip)">${folds(fold,u)}</g></g>`;
+    const B = `<g ${tf}><g clip-path="url(#${u}-clip)"><rect x="0" y="-60" width="600" height="760" fill="url(#${u}-sh)"/><rect x="0" y="-60" width="600" height="760" fill="url(#${u}-sv)"/></g>${stitches}<use href="#${u}-body" fill="none" stroke="${line}" stroke-width="2" stroke-linejoin="round"/></g>`;
+    const shadow = `<ellipse cx="300" cy="${bottom}" rx="${shape==="cap"?210:240}" ry="14" fill="#000" opacity=".16" filter="url(#${u}-s)"/>`;
+    const vb = shape==="cap" ? "20 130 560 400" : (oy===60 ? "0 -40 600 740" : "0 20 600 680");
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}">${defs}${shadow}<g transform="translate(0,${oy===60?20:0})">${A}${logo}${B}${extraTop}</g></svg>`;
+  }
+  return { garmentSVG, mix };
+})();
+
+</script>
+<script>
+// ===== NASTAVENÍ =====
+// 1) Sem vlož přístupový klíč z web3forms.com (mezi uvozovky):
+const WEB3FORMS_KEY = "046c8925-fb27-4280-9327-f4f57b5bbaf1";
+// 2) E-mail, který uvidí žáci, když budou potřebovat poradit:
+const CONTACT_EMAIL = "next6project@gmail.com";
+// 3) Ceny, barvy a velikosti si můžeš upravit níže.
+const COLORS = {
+  bila:   {name:"bílá",          hex:"#f6f6f3", line:"#cfcfc8"},
+  cerna:  {name:"černá",         hex:"#232428", line:"#3a3c42"},
+  seda:   {name:"šedý melír",    hex:"#c8c8c4", line:"#a9a9a4"},
+  namorni:{name:"námořní modrá", hex:"#22304f", line:"#33456e"},
+  // barvy mikiny bez kapuce (číslo v závorce = kód barvy, vidíš ho jen v e-mailu)
+  cl_bila:    {name:"bílá (01)",           hex:"#f6f6f3"},
+  cl_cerna:   {name:"černá (02)",          hex:"#232428"},
+  cl_tmavesed:{name:"tmavě šedá (46)",     hex:"#4a4c52"},
+  cl_melir:   {name:"melírová šedá (58)",  hex:"#c8c8c4"},
+  cl_cervena: {name:"červená (60)",        hex:"#c41e2c"},
+  cl_royal:   {name:"royal modrá (05)",    hex:"#1e4ea8"},
+  cl_navy:    {name:"navy (55)",           hex:"#22304f"},
+  cl_zelena:  {name:"lahvově zelená (56)", hex:"#1c4a32"},
+  cl_granat:  {name:"granátová (57)",      hex:"#6e1e2e"},
+  // barvy kšiltovky
+  k_bila:   {name:"bílá (01)",        hex:"#f6f6f3"},
+  k_cerna:  {name:"černá (02)",       hex:"#232428"},
+  k_zluta:  {name:"žlutá (03)",       hex:"#f3c614"},
+  k_royal:  {name:"royal modrá (05)", hex:"#1e4ea8"},
+  k_navy:   {name:"navy (55)",        hex:"#22304f"},
+  k_cervena:{name:"červená (60)",     hex:"#c41e2c"},
+  k_zelena: {name:"zelená (226)",     hex:"#1f8a3e"},
+  // barvy triček
+  t_bila:    {name:"bílá (00)",             hex:"#f6f6f3"},
+  t_cerna:   {name:"černá (01)",            hex:"#222327"},
+  t_namorni: {name:"námořní modrá (02)",    hex:"#202a46"},
+  t_snorkel: {name:"snorkel blue (70)",     hex:"#1f5c8a"},
+  t_cervena: {name:"formula red (71)",      hex:"#cd202e"},
+  t_ombre:   {name:"ombre blue (72)",       hex:"#424856"},
+  t_antracit:{name:"světlý antracit (83)",  hex:"#5c5f65"},
+  t_vanilka: {name:"bourbon vanilla (85)",  hex:"#e8dcc4"},
+  t_granat:  {name:"granátová (86)",        hex:"#761e2e"},
+  t_petrol:  {name:"petrolejová modrá (93)",hex:"#1e5460"}
+};
+const HOOD_COLORS=["h_bila","h_cerna","h_melir","h_cervena","h_royal","h_navy","h_zelena","h_granat"];
+Object.assign(COLORS,{
+  h_bila:   {name:"bílá (01)",           hex:"#f6f6f3"},
+  h_cerna:  {name:"černá (02)",          hex:"#232428"},
+  h_melir:  {name:"šedý melír (58)",     hex:"#c8c8c4"},
+  h_cervena:{name:"červená (60)",        hex:"#c41e2c"},
+  h_royal:  {name:"royal modrá (05)",    hex:"#1e4ea8"},
+  h_navy:   {name:"navy (55)",           hex:"#22304f"},
+  h_zelena: {name:"lahvově zelená (56)", hex:"#1c4a32"},
+  h_granat: {name:"granátová (57)",      hex:"#6e1e2e"}
+});
+const HOODW_COLORS=["hw_bila","hw_cerna","hw_melir","hw_cervena","hw_royal","hw_navy"];
+Object.assign(COLORS,{
+  hw_bila:   {name:"bílá (01)",        hex:"#f6f6f3"},
+  hw_cerna:  {name:"černá (02)",       hex:"#232428"},
+  hw_melir:  {name:"šedý melír (58)",  hex:"#c4c4c0"},
+  hw_cervena:{name:"červená (60)",     hex:"#c41e2c"},
+  hw_royal:  {name:"royal modrá (05)", hex:"#1e4ea8"},
+  hw_navy:   {name:"navy (55)",        hex:"#22304f"}
+});
+const TEE_COLORS=["t_bila","t_cerna","t_namorni","t_snorkel","t_cervena","t_ombre","t_antracit","t_vanilka","t_granat","t_petrol"];
+
+const MIKINA_BEZ_KAPUCE = {
+  colors:["cl_bila","cl_cerna","cl_tmavesed","cl_melir","cl_cervena","cl_royal","cl_navy","cl_zelena","cl_granat"],
+  sizes:["XS","S","M","L","XL","2XL","3XL"]  
+};
+// ===== CENY =====
+// Prodejní cena = cena oblečení s DPH (podle velikosti) + cena potisku/výšivky, zaokrouhleno nahoru na celé Kč.
+// Ceny jsou podle ceníku z 2. 11. 2026 (bílá barva). Uprav čísla tady, formulář spočítá zbytek sám.
+const POTISK = { triko: 169.40, mikina: 169.40, ksiltovka: 73 };
+const CENA_S_DPH = {
+  // trička: 159,90 Kč bez DPH × 1,21 = 193,48 Kč; 3XL 179,90 Kč bez DPH × 1,21 = 217,68 Kč
+  "triko-d":  { XS:193.48, S:193.48, M:193.48, L:193.48, XL:193.48, "2XL":193.48 },
+  "triko-p":  { S:193.48, M:193.48, L:193.48, XL:193.48, "2XL":193.48, "3XL":217.68 },
+  "mikina-p": { XS:211.75, S:211.75, M:211.75, L:211.75, XL:211.75, "2XL":211.75, "3XL":229.90 },
+  "hoodie-d": { S:289.19, M:289.19, L:289.19, XL:289.19, "2XL":289.19 },
+  "hoodie-p": { XS:289.19, S:289.19, M:289.19, L:289.19, XL:289.19, "2XL":289.19, "3XL":313.39, "4XL":325.49 },
+  "ksilt":    { UNI:44.77 }
+};
+const POTISK_PRODUKTU = { "triko-d":POTISK.triko, "triko-p":POTISK.triko, "mikina-p":POTISK.mikina, "hoodie-d":POTISK.mikina, "hoodie-p":POTISK.mikina, "ksilt":POTISK.ksiltovka };
+const round2 = n => Math.round(n*100)/100;
+// prodejní cena se zaokrouhluje NAHORU na celé koruny
+function cena(p, size){ const c=(CENA_S_DPH[p.id]||{})[size]; return c==null ? 0 : Math.ceil(round2(c + (POTISK_PRODUKTU[p.id]||0))); }
+function cenaOd(p){ const v=p.sizes.map(s=>cena(p,s)); return {min:Math.min(...v), max:Math.max(...v)}; }
+const PRODUCTS = [
+  {id:"triko-d", name:"Tričko dámské", shape:"tee-w", photos:"tee_w",  colors:TEE_COLORS, sizes:["XS","S","M","L","XL","2XL"], meta:"Dámské přiléhavé tričko s hlubším kulatým výstřihem. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--red"  },
+  {id:"triko-p", name:"Tričko pánské", shape:"tee-m", photos:"tee_m",  colors:TEE_COLORS, sizes:["S","M","L","XL","2XL","3XL"], meta:"Pánské přiléhavé tričko. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--red"  },
+  {id:"mikina-p", name:"Mikina bez kapuce (unisex)", shape:"crew-m", photo:true, ...MIKINA_BEZ_KAPUCE,  meta:"Mikina s kulatým výstřihem, unisex střih pro pány i dámy – dámám doporučujeme o číslo menší. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--green"},
+  {id:"hoodie-d", name:"Mikina s kapucí dámská", shape:"hood-w", photos:"hoodw",  colors:HOODW_COLORS, sizes:["S","M","L","XL","2XL"],
+   meta:"Dámská mikina s kapucí a klokaní kapsou. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--blue"  },
+  {id:"hoodie-p", name:"Mikina s kapucí pánská", shape:"hood-m", photos:"hood",  colors:HOOD_COLORS, sizes:["XS","S","M","L","XL","2XL","3XL","4XL"],
+   meta:"Mikina s kapucí a klokaní kapsou. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--blue"  },
+  {id:"ksilt", name:"Kšiltovka", shape:"cap", 
+   colors:["k_cerna","k_bila","k_cervena","k_royal","k_navy","k_zelena","k_zluta"], sizes:["UNI"],
+   photos:"cap", views:[["front","Předek – strom"],["left","Levý bok – logo NESLHK.COM"]],
+   meta:"Kšiltovka s nastavitelným zapínáním vzadu. Vepředu vyšitý strom, na levém boku logo NESLHK.COM.", dot:"--yellow"  }
+];
+// =====================================================================
+
+const PHOTOS = {"bila": {"front": "images/merch/mikina-bila-front.jpg", "back": "images/merch/mikina-bila-back.jpg"}, "cerna": {"front": "images/merch/mikina-cerna-front.jpg", "back": "images/merch/mikina-cerna-back.jpg"}, "tmavesed": {"front": "images/merch/mikina-tmavesed-front.jpg", "back": "images/merch/mikina-tmavesed-back.jpg"}, "melir": {"front": "images/merch/mikina-melir-front.jpg", "back": "images/merch/mikina-melir-back.jpg"}, "cervena": {"front": "images/merch/mikina-cervena-front.jpg", "back": "images/merch/mikina-cervena-back.jpg"}, "royal": {"front": "images/merch/mikina-royal-front.jpg", "back": "images/merch/mikina-royal-back.jpg"}, "navy": {"front": "images/merch/mikina-navy-front.jpg", "back": "images/merch/mikina-navy-back.jpg"}, "zelena": {"front": "images/merch/mikina-zelena-front.jpg", "back": "images/merch/mikina-zelena-back.jpg"}, "granat": {"front": "images/merch/mikina-granat-front.jpg", "back": "images/merch/mikina-granat-back.jpg"}};
+const TEE_PHOTOS = {"m": {"bila": {"front": "images/merch/triko-p-bila-front.jpg", "back": "images/merch/triko-p-bila-back.jpg"}, "cerna": {"front": "images/merch/triko-p-cerna-front.jpg", "back": "images/merch/triko-p-cerna-back.jpg"}, "namorni": {"front": "images/merch/triko-p-namorni-front.jpg", "back": "images/merch/triko-p-namorni-back.jpg"}, "snorkel": {"front": "images/merch/triko-p-snorkel-front.jpg", "back": "images/merch/triko-p-snorkel-back.jpg"}, "cervena": {"front": "images/merch/triko-p-cervena-front.jpg", "back": "images/merch/triko-p-cervena-back.jpg"}, "ombre": {"front": "images/merch/triko-p-ombre-front.jpg", "back": "images/merch/triko-p-ombre-back.jpg"}, "antracit": {"front": "images/merch/triko-p-antracit-front.jpg", "back": "images/merch/triko-p-antracit-back.jpg"}, "vanilka": {"front": "images/merch/triko-p-vanilka-front.jpg", "back": "images/merch/triko-p-vanilka-back.jpg"}, "granat": {"front": "images/merch/triko-p-granat-front.jpg", "back": "images/merch/triko-p-granat-back.jpg"}, "petrol": {"front": "images/merch/triko-p-petrol-front.jpg", "back": "images/merch/triko-p-petrol-back.jpg"}}, "w": {"bila": {"front": "images/merch/triko-d-bila-front.jpg", "back": "images/merch/triko-d-bila-back.jpg"}, "cerna": {"front": "images/merch/triko-d-cerna-front.jpg", "back": "images/merch/triko-d-cerna-back.jpg"}, "namorni": {"front": "images/merch/triko-d-namorni-front.jpg", "back": "images/merch/triko-d-namorni-back.jpg"}, "snorkel": {"front": "images/merch/triko-d-snorkel-front.jpg", "back": "images/merch/triko-d-snorkel-back.jpg"}, "cervena": {"front": "images/merch/triko-d-cervena-front.jpg", "back": "images/merch/triko-d-cervena-back.jpg"}, "ombre": {"front": "images/merch/triko-d-ombre-front.jpg", "back": "images/merch/triko-d-ombre-back.jpg"}, "antracit": {"front": "images/merch/triko-d-antracit-front.jpg", "back": "images/merch/triko-d-antracit-back.jpg"}, "vanilka": {"front": "images/merch/triko-d-vanilka-front.jpg", "back": "images/merch/triko-d-vanilka-back.jpg"}, "granat": {"front": "images/merch/triko-d-granat-front.jpg", "back": "images/merch/triko-d-granat-back.jpg"}, "petrol": {"front": "images/merch/triko-d-petrol-front.jpg", "back": "images/merch/triko-d-petrol-back.jpg"}}};
+const CAP_PHOTOS = {"cerna": {"front": "images/merch/ksiltovka-cerna-front.jpg", "left": "images/merch/ksiltovka-cerna-left.jpg"}, "bila": {"front": "images/merch/ksiltovka-bila-front.jpg", "left": "images/merch/ksiltovka-bila-left.jpg"}, "cervena": {"front": "images/merch/ksiltovka-cervena-front.jpg", "left": "images/merch/ksiltovka-cervena-left.jpg"}, "royal": {"front": "images/merch/ksiltovka-royal-front.jpg", "left": "images/merch/ksiltovka-royal-left.jpg"}, "navy": {"front": "images/merch/ksiltovka-navy-front.jpg", "left": "images/merch/ksiltovka-navy-left.jpg"}, "zelena": {"front": "images/merch/ksiltovka-zelena-front.jpg", "left": "images/merch/ksiltovka-zelena-left.jpg"}, "zluta": {"front": "images/merch/ksiltovka-zluta-front.jpg", "left": "images/merch/ksiltovka-zluta-left.jpg"}};
+const HOOD_PHOTOS = {"hneda": {"front": "images/merch/hoodie-p-hneda-front.jpg", "back": "images/merch/hoodie-p-hneda-back.jpg"}, "bila": {"front": "images/merch/hoodie-p-bila-front.jpg", "back": "images/merch/hoodie-p-bila-back.jpg"}, "cerna": {"front": "images/merch/hoodie-p-cerna-front.jpg", "back": "images/merch/hoodie-p-cerna-back.jpg"}, "melir": {"front": "images/merch/hoodie-p-melir-front.jpg", "back": "images/merch/hoodie-p-melir-back.jpg"}, "cervena": {"front": "images/merch/hoodie-p-cervena-front.jpg", "back": "images/merch/hoodie-p-cervena-back.jpg"}, "royal": {"front": "images/merch/hoodie-p-royal-front.jpg", "back": "images/merch/hoodie-p-royal-back.jpg"}, "navy": {"front": "images/merch/hoodie-p-navy-front.jpg", "back": "images/merch/hoodie-p-navy-back.jpg"}, "zelena": {"front": "images/merch/hoodie-p-zelena-front.jpg", "back": "images/merch/hoodie-p-zelena-back.jpg"}, "granat": {"front": "images/merch/hoodie-p-granat-front.jpg", "back": "images/merch/hoodie-p-granat-back.jpg"}};
+const HOODW_PHOTOS = {"bila": {"front": "images/merch/hoodie-d-bila-front.jpg", "back": "images/merch/hoodie-d-bila-back.jpg"}, "cerna": {"front": "images/merch/hoodie-d-cerna-front.jpg", "back": "images/merch/hoodie-d-cerna-back.jpg"}, "melir": {"front": "images/merch/hoodie-d-melir-front.jpg", "back": "images/merch/hoodie-d-melir-back.jpg"}, "cervena": {"front": "images/merch/hoodie-d-cervena-front.jpg", "back": "images/merch/hoodie-d-cervena-back.jpg"}, "royal": {"front": "images/merch/hoodie-d-royal-front.jpg", "back": "images/merch/hoodie-d-royal-back.jpg"}, "navy": {"front": "images/merch/hoodie-d-navy-front.jpg", "back": "images/merch/hoodie-d-navy-back.jpg"}};
+function photoFor(p,color,view){ if(p.photos==="hoodw") return HOODW_PHOTOS[color.replace("hw_","")][view]; if(p.photos==="hood") return HOOD_PHOTOS[color.replace("h_","")][view]; if(p.photos==="cap") return CAP_PHOTOS[color.replace("k_","")][view]; if(p.photos) return TEE_PHOTOS[p.photos==="tee_m"?"m":"w"][color.replace("t_","")][view]; return PHOTOS[color.replace("cl_","")][view]; }
+const DEFAULT_VIEWS=[["front","Předek – logo na prsou"],["back","Záda – strom"]];
+const LOGOS = {fig:"images/merch/logo-fig.png", txt:"images/merch/logo-txt.png", txtW:"images/merch/logo-txtW.png", tree:"images/merch/logo-tree.png", nes:"images/merch/logo-nes.png", nesW:"images/merch/logo-nesW.png"};
+const state = {};
+PRODUCTS.forEach(p=>{ state[p.id]={color:p.colors[0], qty:Object.fromEntries(p.sizes.map(s=>[s,0]))}; });
+
+const fmt = n => round2(n).toLocaleString("cs-CZ",{minimumFractionDigits:(Math.round(n*100)%100?2:0),maximumFractionDigits:2})+" Kč";
+const fmtP = fmt;
+const totalSections = PRODUCTS.length + 2;
+document.getElementById("kontakt-tag").textContent = `Sekce 1 z ${totalSections}`;
+document.getElementById("shrnuti-tag").textContent = `Sekce ${totalSections} z ${totalSections}`;
+
+function renderProducts(){
+  const box=document.getElementById("products"); box.innerHTML="";
+  const toc=document.getElementById("toc");
+  toc.innerHTML=`<a href="#kontakt"><span class="k">1</span>Kontakt</a>`;
+  PRODUCTS.forEach((p,i)=>{
+    const st=state[p.id];
+    toc.insertAdjacentHTML("beforeend",`<a href="#${p.id}"><span class="k">${i+2}</span>${p.name}</a>`);
+    const sec=document.createElement("section"); sec.className="sec"; sec.id=p.id;
+    sec.innerHTML=`
+      <div class="sec-head"><span class="dot" style="background:var(${p.dot})"></span><span class="tag">Sekce ${i+2} z ${totalSections}</span><h2>${p.name}</h2></div>
+      <div class="product">
+        <div class="mock" style="grid-template-columns:repeat(${(p.views||DEFAULT_VIEWS).length},1fr)">${(p.views||DEFAULT_VIEWS).map(([v,c])=>`<figure><div class="pic" data-v="${v}"></div><figcaption>${c}</figcaption></figure>`).join("")}</div>
+        <div class="info">
+          <p class="meta">${p.meta}</p>
+          <div class="price">${(r=>r.min===r.max ? fmt(r.min) : "od "+fmt(r.min))(cenaOd(p))} <small>/ ks vč. DPH a loga</small></div>
+          <div class="row-label">Barva</div>
+          <div class="colors">${p.colors.map(c=>`<label><input type="radio" name="c-${p.id}" id="c-${p.id}-${c}" value="${c}" ${c===st.color?"checked":""}><span class="sw" style="background:${COLORS[c].hex}"></span>${dispName(COLORS[c].name)}</label>`).join("")}</div>
+          <div class="row-label">Velikost a počet kusů</div>
+          <div class="sizes">${p.sizes.map(s=>`<div class="sz" data-s="${s}"><b>${s==="UNI"?"univerzální":s}</b><span class="szp">${fmt(cena(p,s))}</span><div class="step"><button type="button" data-d="-1" aria-label="Ubrat ${s}">−</button><output>0</output><button type="button" data-d="1" aria-label="Přidat ${s}">+</button></div></div>`).join("")}</div>
+          <div class="sub" data-sub></div>
+          
         </div>
-      </div>
-    </section>
-  </main>
+      </div>`;
+    box.appendChild(sec);
+    const draw=()=>{ sec.querySelectorAll(".pic").forEach(el=>{ el.innerHTML = (p.photo||p.photos) ? `<img src="${photoFor(p,st.color,el.dataset.v)}" alt="" loading="lazy" decoding="async">` : Garments.garmentSVG(p.shape, el.dataset.v, COLORS[st.color].hex, LOGOS); el.classList.toggle("photo", !!(p.photo||p.photos)); const sv=el.firstElementChild; sv.setAttribute("role","img"); sv.setAttribute("aria-label", p.name+", "+COLORS[st.color].name+", "+({front:"předek",back:"záda",left:"levý bok"}[el.dataset.v])); }); };
+    draw();
+    sec.querySelectorAll(`input[name="c-${p.id}"]`).forEach(r=>r.addEventListener("change",()=>{st.color=r.value;draw();update();}));
+    sec.querySelectorAll(".sz").forEach(el=>{
+      const s=el.dataset.s;
+      el.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+        st.qty[s]=Math.max(0,Math.min(20,st.qty[s]+Number(b.dataset.d))); update();
+      }));
+    });
+  });
+  toc.insertAdjacentHTML("beforeend",`<a href="#shrnuti"><span class="k">${totalSections}</span>Shrnutí</a>`);
+}
+
+function items(){
+  const out=[];
+  PRODUCTS.forEach(p=>{ const st=state[p.id];
+    p.sizes.forEach(s=>{ if(st.qty[s]>0) out.push({produkt:p.name, id:p.id, barva:COLORS[st.color].name, velikost:s, ks:st.qty[s], cena:cena(p,s), mezisoucet:round2(st.qty[s]*cena(p,s))}); });
+  });
+  return out;
+}
+
+function update(){
+  PRODUCTS.forEach(p=>{
+    const sec=document.getElementById(p.id), st=state[p.id];
+    let n=0;
+    sec.querySelectorAll(".sz").forEach(el=>{ const q=st.qty[el.dataset.s]; el.querySelector("output").textContent=q; el.classList.toggle("has",q>0); n+=q; });
+    sec.querySelector("[data-sub]").textContent = n? `Vybráno ${n} ks (${dispName(COLORS[st.color].name)}) = ${fmt(p.sizes.reduce((a,s)=>a+st.qty[s]*cena(p,s),0))}` : "Zatím nevybráno – sekci můžeš přeskočit.";
+  });
+  const it=items(), total=round2(it.reduce((a,b)=>a+b.mezisoucet,0)), cnt=it.reduce((a,b)=>a+b.ks,0);
+  document.getElementById("bar-sum").textContent=fmt(total);
+  document.getElementById("bar-cnt").textContent= cnt? `${cnt} ks v objednávce` : "Zatím nic v objednávce";
+  const t=document.getElementById("sumtable");
+  t.innerHTML = it.length ? `<thead><tr><th>Produkt</th><th>Barva</th><th>Vel.</th><th class="n">Ks</th><th class="n">Cena</th></tr></thead><tbody>${
+    it.map(x=>`<tr><td>${x.produkt}</td><td>${dispName(x.barva)}</td><td>${x.velikost}</td><td class="n">${x.ks}</td><td class="n">${fmtP(x.mezisoucet)}</td></tr>`).join("")
+  }<tr class="total-row"><td colspan="3">Celkem</td><td class="n">${cnt}</td><td class="n">${fmtP(total)}</td></tr></tbody>` : `<tbody><tr><td class="meta">Zatím jsi nic nevybral(a). Vrať se k produktům a nastav počet kusů.</td></tr></tbody>`;
+}
+
+function showStatus(kind, html){ const s=document.getElementById("status"); s.className="msg "+kind; s.innerHTML=html; s.hidden=false; }
+const val=id=>document.getElementById(id).value.trim();
+
+
+const dispName=n=>String(n).replace(/\s*\(\d+\)$/,"");
+function orderText(o){
+  return `Objednávka školního merche NESLHK\n${o.jmeno} (${o.role}${o.trida?", "+o.trida:""}), ${o.email}\n`+
+    o.polozky.map(x=>`- ${x.produkt}, ${x.barva}, ${x.velikost}: ${x.ks} ks = ${fmt(x.mezisoucet)}`).join("\n")+
+    `
+Celkem: ${fmtP(o.celkem)}${o.poznamka?"\nPoznámka: "+o.poznamka:""}`;
+}
+
+document.getElementById("send").addEventListener("click", async ()=>{
+  const it=items();
+  if(!val("jmeno")||!val("role")||!val("email")) { showStatus("err","Vyplň prosím jméno, kdo jsi a e-mail v sekci 1."); document.getElementById("kontakt").scrollIntoView(); return; }
+  if(!/^\S+@\S+\.\S+$/.test(val("email"))) { showStatus("err","E-mail nevypadá správně. Zkontroluj ho prosím v sekci 1."); return; }
+  if(!it.length) { showStatus("err","V objednávce není žádný produkt. Nastav u některé velikosti počet kusů."); return; }
+  if(!document.getElementById("souhlas").checked) { showStatus("err","Potvrď prosím, že je objednávka závazná."); return; }
+  if(!WEB3FORMS_KEY || WEB3FORMS_KEY.startsWith("VLOZ")) { showStatus("err","Formulář ještě není nastavený: chybí přístupový klíč Web3Forms. Dej vědět správci formuláře."); return; }
+  const o={jmeno:val("jmeno"), role:val("role"), trida:val("trida"), email:val("email"), poznamka:val("poznamka"),
+    polozky:it, celkem:round2(it.reduce((a,b)=>a+b.mezisoucet,0))};
+  const btn=document.getElementById("send"); btn.disabled=true; btn.textContent="Odesílám…";
+  const payload={
+    access_key: WEB3FORMS_KEY,
+    subject: "Objednávka merche NESLHK – "+o.jmeno+(o.trida?" ("+o.trida+")":""),
+    from_name: "Školní merch NESLHK",
+    replyto: o.email,
+    botcheck: document.getElementById("botcheck").checked,
+    "Jméno a příjmení": o.jmeno,
+    "Kdo objednává": o.role,
+    "Třída": o.trida || "–",
+    "E-mail": o.email,
+    "Objednávka": o.polozky.map(x=>`${x.produkt}, ${x.barva}, vel. ${x.velikost}: ${x.ks} ks × ${fmt(x.cena)} = ${fmt(x.mezisoucet)}`).join("\n"),
+    "Počet kusů": o.polozky.reduce((a,b)=>a+b.ks,0),
+    "Celkem": fmtP(o.celkem),
+    "Poznámka": o.poznamka || "–"
+  };
+  try{
+    const res=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok || !data.success) throw new Error(data.message||("HTTP "+res.status));
+    showStatus("ok",`<b>Děkujeme, objednávka je odeslaná.</b> Celkem ${fmt(o.celkem)}. Shrnutí najdeš v tabulce výše. Pokud budeš chtít něco změnit, napiš na <b>${esc(CONTACT_EMAIL)}</b>.`);
+  }catch(e){
+    showStatus("err",`Objednávku se nepodařilo odeslat (${esc(e.message)}). Zkontroluj připojení k internetu a zkus to znovu. Když to nepůjde, pošli objednávku e-mailem na <b>${esc(CONTACT_EMAIL)}</b>:<pre class="copy" id="copytxt"></pre>`);
+    document.getElementById("copytxt").textContent=orderText(o);
+  }finally{ btn.disabled=false; btn.textContent="Odeslat objednávku"; }
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  PRODUCTS.forEach(p=>{ state[p.id]={color:p.colors[0], qty:Object.fromEntries(p.sizes.map(s=>[s,0]))}; });
+  ["jmeno","trida","email","poznamka"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("role").value=""; document.getElementById("souhlas").checked=false;
+  document.getElementById("status").hidden=true;
+  renderProducts(); update();
+});
+
+function esc(s){ return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+renderProducts(); update();
+
+
+</script>
+
+</main>
 
   <footer class="paticka">
     <div class="obal">
@@ -71,6 +615,7 @@
       <p class="paticka__spodek">© <span class="rok">2026</span> NEXT6 <a href="ochrana-osobnich-udaju.html">Ochrana osobních údajů</a> <a href="souhlas-s-fotografovanim.html">Souhlas s fotografováním</a></p>
     </div>
   </footer>
+
 
 </body>
 </html>
