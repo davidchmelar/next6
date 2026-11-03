@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Objednávka školního oblečení NESLHK – trička, mikiny a kšiltovky s vyšitým logem.">
+<meta name="description" content="Objednávka školního oblečení NESLHK – trička, mikiny a kšiltovky s potiskem.">
 <title>Merch – NEXT6</title>
 <meta property="og:title" content="Merch – NEXT6">
-<meta property="og:description" content="Objednávka školního oblečení – trička, mikiny a kšiltovky s vyšitým logem.">
+<meta property="og:description" content="Objednávka školního oblečení – trička, mikiny a kšiltovky s potiskem.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.next6project.com/merch.html">
 <meta property="og:image" content="https://www.next6project.com/images/logo-next6.png">
@@ -40,6 +40,8 @@ h2{font-size:24px;font-weight:800}
 header.merch-hero{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
 header.merch-hero p{margin:8px 0 0;color:var(--muted);max-width:60ch}
 .logo-badge{background:#fff;border-radius:16px;padding:12px;width:150px}
+.merch-banner{margin:0;border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line)}
+.merch-banner img{display:block;width:100%;height:auto}
 .logo-badge img{display:block}
 .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px;scroll-margin-top:16px}
 .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
@@ -160,10 +162,14 @@ main>.wrap{padding-bottom:40px}
     <div>
       <span class="tag">Objednávka školního oblečení</span>
       <h1>Školní merch NESLHK</h1>
-      <p>Vyber si trička, mikiny nebo kšiltovku. Všechna loga jsou vyšitá. Vepředu na prsou je malé logo NESLHK.COM, na zádech strom. Kšiltovka má strom vepředu a logo NESLHK.COM na levém boku. Každý produkt má svou sekci, dámské a pánské střihy jsou oddělené. U každé velikosti nastav počet kusů a na konci objednávku odešli.</p>
+      <p>Vyber si trička, mikiny nebo kšiltovku. Všechna loga jsou potištěná. Vepředu na prsou je malé logo NESLHK.COM, na zádech strom. Kšiltovka má strom vepředu a logo NESLHK.COM na levém boku. Každý produkt má svou sekci, dámské a pánské střihy jsou oddělené. U každé velikosti nastav počet kusů a na konci objednávku odešli.</p>
     </div>
     <div class="logo-badge"><img src="images/merch/logo-neslhk.png" alt="Logo NESLHK.COM" width="150" height="150"></div>
   </header>
+  <figure class="merch-banner">
+    <img src="images/merch/banner.jpg" width="1800" height="600" decoding="async"
+         alt="Mikina, mikina s kapucí, trička a kšiltovka s potiskem stromu a loga NESLHK.COM">
+  </figure>
   <nav class="toc" id="toc" aria-label="Sekce formuláře"></nav>
 
   <section class="sec" id="kontakt">
@@ -447,17 +453,17 @@ const round2 = n => Math.round(n*100)/100;
 function cena(p, size){ const c=(CENA_S_DPH[p.id]||{})[size]; return c==null ? 0 : Math.ceil(round2(c + (POTISK_PRODUKTU[p.id]||0))); }
 function cenaOd(p){ const v=p.sizes.map(s=>cena(p,s)); return {min:Math.min(...v), max:Math.max(...v)}; }
 const PRODUCTS = [
-  {id:"triko-d", name:"Tričko dámské", shape:"tee-w", photos:"tee_w",  colors:TEE_COLORS, sizes:["XS","S","M","L","XL","2XL"], meta:"Dámské přiléhavé tričko s hlubším kulatým výstřihem. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--red"  },
-  {id:"triko-p", name:"Tričko pánské", shape:"tee-m", photos:"tee_m",  colors:TEE_COLORS, sizes:["S","M","L","XL","2XL","3XL"], meta:"Pánské přiléhavé tričko. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--red"  },
-  {id:"mikina-p", name:"Mikina bez kapuce (unisex)", shape:"crew-m", photo:true, ...MIKINA_BEZ_KAPUCE,  meta:"Mikina s kulatým výstřihem, unisex střih pro pány i dámy – dámám doporučujeme o číslo menší. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--green"},
+  {id:"triko-d", name:"Tričko dámské ACTION 150", shape:"tee-w", photos:"tee_w",  colors:TEE_COLORS, sizes:["XS","S","M","L","XL","2XL"], meta:"Dámské přiléhavé tričko s hlubším kulatým výstřihem. Vepředu malý potisk loga na prsou, na zádech strom.", dot:"--red"  },
+  {id:"triko-p", name:"Tričko pánské ACTION 153", shape:"tee-m", photos:"tee_m",  colors:TEE_COLORS, sizes:["S","M","L","XL","2XL","3XL"], meta:"Pánské přiléhavé tričko. Vepředu malý potisk loga na prsou, na zádech strom.", dot:"--red"  },
+  {id:"mikina-p", name:"Mikina bez kapuce (UNI)", shape:"crew-m", photo:true, ...MIKINA_BEZ_KAPUCE,  meta:"Mikina s kulatým výstřihem, UNI střih pro pány i dámy – dámám doporučujeme o číslo menší. Vepředu malý potisk loga na prsou, na zádech strom.", dot:"--green"},
   {id:"hoodie-d", name:"Mikina s kapucí dámská", shape:"hood-w", photos:"hoodw",  colors:HOODW_COLORS, sizes:["S","M","L","XL","2XL"],
-   meta:"Dámská mikina s kapucí a klokaní kapsou. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--blue"  },
+   meta:"Dámská mikina s kapucí a klokaní kapsou. Vepředu malý potisk loga na prsou, na zádech strom.", dot:"--blue"  },
   {id:"hoodie-p", name:"Mikina s kapucí pánská", shape:"hood-m", photos:"hood",  colors:HOOD_COLORS, sizes:["XS","S","M","L","XL","2XL","3XL","4XL"],
-   meta:"Mikina s kapucí a klokaní kapsou. Vepředu malé vyšité logo na prsou, na zádech strom.", dot:"--blue"  },
+   meta:"Mikina s kapucí a klokaní kapsou. Vepředu malý potisk loga na prsou, na zádech strom.", dot:"--blue"  },
   {id:"ksilt", name:"Kšiltovka", shape:"cap", 
    colors:["k_cerna","k_bila","k_cervena","k_royal","k_navy","k_zelena","k_zluta"], sizes:["UNI"],
    photos:"cap", views:[["front","Předek – strom"],["left","Levý bok – logo NESLHK.COM"]],
-   meta:"Kšiltovka s nastavitelným zapínáním vzadu. Vepředu vyšitý strom, na levém boku logo NESLHK.COM.", dot:"--yellow"  }
+   meta:"Kšiltovka s nastavitelným zapínáním vzadu. Vepředu potisk stromu, na levém boku logo NESLHK.COM.", dot:"--yellow"  }
 ];
 // =====================================================================
 
@@ -492,7 +498,7 @@ function renderProducts(){
         <div class="mock" style="grid-template-columns:repeat(${(p.views||DEFAULT_VIEWS).length},1fr)">${(p.views||DEFAULT_VIEWS).map(([v,c])=>`<figure><div class="pic" data-v="${v}"></div><figcaption>${c}</figcaption></figure>`).join("")}</div>
         <div class="info">
           <p class="meta">${p.meta}</p>
-          <div class="price">${(r=>r.min===r.max ? fmt(r.min) : "od "+fmt(r.min))(cenaOd(p))} <small>/ ks vč. DPH a loga</small></div>
+          <div class="price">${(r=>r.min===r.max ? fmt(r.min) : "od "+fmt(r.min))(cenaOd(p))} <small>/ ks vč. DPH a potisku</small></div>
           <div class="row-label">Barva</div>
           <div class="colors">${p.colors.map(c=>`<label><input type="radio" name="c-${p.id}" id="c-${p.id}-${c}" value="${c}" ${c===st.color?"checked":""}><span class="sw" style="background:${COLORS[c].hex}"></span>${dispName(COLORS[c].name)}</label>`).join("")}</div>
           <div class="row-label">Velikost a počet kusů</div>
